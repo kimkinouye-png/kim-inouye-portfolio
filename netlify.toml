@@ -1,0 +1,9 @@
+[build]
+  # This is a static site, no build command needed
+  publish = "."
+
+[[redirects]]
+  # Redirect www to non-www (optional, customize as needed)
+  from = "/*"
+  to = "/index.html"
+  status = 200
