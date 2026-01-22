@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kim Inouye | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .password-form {
+            background: var(--bg-color);
+            padding: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .password-form h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--text-primary);
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .password-submit:hover {
+            opacity: 0.8;
+        }
+
+        .password-error {
+            color: #ff4444;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .portfolio-content {
+            display: none;
+        }
+
+        .portfolio-content.active {
+            display: block;
+        }
+
+        /* Portfolio-specific styles */
+        .portfolio-main {
+            max-width: 1200px;
+        }
+
+        .portfolio-header {
+            margin-bottom: 5rem;
+        }
+
+        .portfolio-header h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .portfolio-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .project-card {
+            margin-bottom: 8rem;
+        }
+
+        .project-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .project-content {
+            margin-bottom: 3rem;
+        }
+
+        .project-section {
+            margin-bottom: 2rem;
+        }
+
+        .project-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-section h3 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-section p {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+        }
+
+        .project-section li {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-section li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .project-image-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            display: block;
+        }
+
+        /* Dark mode adjustments for portfolio */
+        body.dark-mode .project-image-container {
+            background: #0a0a0a;
+            border-color: #404040;
+        }
+
+        @media (max-width: 768px) {
+            .project-image-container {
+                padding: 1rem;
+            }
+
+            .project-card {
+                margin-bottom: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="passwordContainer" class="password-container">
+        <div class="password-form">
+            <h2>Portfolio Access</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Please enter the password to view this portfolio.</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password" autocomplete="off">
+            <button id="passwordSubmit" class="password-submit">Enter</button>
+            <p id="passwordError" class="password-error">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Portfolio Content (hidden until password is correct) -->
+    <div id="portfolioContent" class="portfolio-content">
+        <!-- Navigation -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="logo-link">K / I</a></li>
+            </ul>
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                <span class="toggle-icon"><span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span></span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="portfolio-main">
+            <!-- Header -->
+            <header class="portfolio-header">
+                <h1>Product Design Portfolio</h1>
+                <p>
+                    A collection of product design work showcasing strategic problem-solving, 
+                    cross-functional collaboration, and measurable impact across fintech experiences.
+                </p>
+            </header>
+
+            <!-- Portfolio Projects -->
+            <div class="portfolio-projects">
+                <!-- Project 1: Smart Wallet -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h2 class="project-title">Accelerate Loyalty with Smart Wallet</h2>
+                        
+                        <div class="project-section">
+                            <h3>Objective</h3>
+                            <p>Drive habit and engagement by connecting PayPal+ to Smart Wallet, making rewards feel easy and worth it.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>What We Did</h3>
+                            <p>Developed an intelligent wallet analysis system that identifies top earning opportunities and surfaces personalized recommendations. The experience seamlessly integrates reward cards and payment methods to maximize customer benefits.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>Impact</h3>
+                            <ul>
+                                <li>Automated wallet analysis and optimization</li>
+                                <li>Real-time earning opportunity identification</li>
+                                <li>Integrated rewards experience across payment journey</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-image-container">
+                        <img src="images/smart-wallet.png" alt="Smart Wallet design screens">
+                    </div>
+                </div>
+
+                <!-- Project 2: Restore and Grow XO -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h2 class="project-title">Restore and Grow XO</h2>
+                        
+                        <div class="project-section">
+                            <h3>Objective</h3>
+                            <p>Integrate Smart Wallet, Rewards, and Identity into checkout moments to reverse checkout erosion and strengthen the XO platform's flexibility.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>What We Did</h3>
+                            <p>Designed a holistic ecosystem view that coordinates design efforts across multiple functions. The solution integrates BNPL (Pay in 4) directly into merchant checkout experiences with clear payment options and transparent terms.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>Impact</h3>
+                            <ul>
+                                <li>Unified checkout experience across surfaces</li>
+                                <li>Reduced checkout abandonment through integrated payment options</li>
+                                <li>Strengthened design parity across the XO platform</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-image-container">
+                        <img src="images/restore-xo.png" alt="Restore and Grow XO design screens">
+                    </div>
+                </div>
+
+                <!-- Project 3: PayPal+ -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h2 class="project-title">Accelerate Loyalty with PayPal+</h2>
+                        
+                        <div class="project-section">
+                            <h3>Objective</h3>
+                            <p>Drive habit and engagement by making PayPal+ rewards visible, accessible, and valuable throughout the user experience.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>What We Did</h3>
+                            <p>Created the PayPal+ Drop campaign and rewards dashboard, featuring milestone tracking, benefit discovery, and actionable rewards. The design emphasizes progress visualization and clear value proposition.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>Impact</h3>
+                            <ul>
+                                <li>Increased rewards program visibility and engagement</li>
+                                <li>Milestone-based gamification driving user activity</li>
+                                <li>Integrated benefits discovery within the core app experience</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-image-container">
+                        <img src="images/paypal-plus.png" alt="PayPal+ design screens">
+                    </div>
+                </div>
+
+                <!-- Project 4: Agentic Pay Later -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h2 class="project-title">Drive an Agentic Future - Pay Later</h2>
+                        
+                        <div class="project-section">
+                            <h3>Objective</h3>
+                            <p>Lead industry transformation toward agentic commerce through conversational, AI-driven experiences across shopping, payments, servicing, and offers.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>What We Did</h3>
+                            <p>Designed Pay Later integration at top retail partners (Nike, Lululemon, Amazon, Wayfair) with prominent placement and cashback offers. The experience orchestrates multiple agents across both 1P and 3P surfaces.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>Impact</h3>
+                            <ul>
+                                <li>Multi-merchant BNPL integration with major retailers</li>
+                                <li>AI-driven offer surfacing and personalization</li>
+                                <li>Seamless cross-platform payment orchestration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-image-container">
+                        <img src="images/agentic-pay-later.png" alt="Agentic Pay Later design screens">
+                    </div>
+                </div>
+
+                <!-- Project 5: Agentic Conversational Commerce -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <h2 class="project-title">Drive an Agentic Future - Conversational Commerce</h2>
+                        
+                        <div class="project-section">
+                            <h3>Objective</h3>
+                            <p>Enable end-to-end conversational shopping experiences that orchestrate product discovery, selection, and checkout through AI agents.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>What We Did</h3>
+                            <p>Built a multi-screen conversational commerce flow where AI assists with product recommendations, shows detailed product information, and enables seamless PayPal checkout—all within a unified conversational interface.</p>
+                        </div>
+
+                        <div class="project-section">
+                            <h3>Impact</h3>
+                            <ul>
+                                <li>Reduced friction in product discovery and purchase</li>
+                                <li>AI-powered product recommendations based on user intent</li>
+                                <li>Integrated checkout within conversational experience</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-image-container">
+                        <img src="images/agentic-conversational-commerce.png" alt="Agentic Conversational Commerce design screens">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Password protection
+        const CORRECT_PASSWORD = 'Ashley';
+        const passwordContainer = document.getElementById('passwordContainer');
+        const portfolioContent = document.getElementById('portfolioContent');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        const passwordError = document.getElementById('passwordError');
+
+        // Check if already authenticated
+        if (sessionStorage.getItem('portfolioAuthenticated') === 'true') {
+            showPortfolio();
+        }
+
+        function showPortfolio() {
+            passwordContainer.style.display = 'none';
+            portfolioContent.classList.add('active');
+            sessionStorage.setItem('portfolioAuthenticated', 'true');
+        }
+
+        function checkPassword() {
+            const enteredPassword = passwordInput.value.trim();
+            if (enteredPassword === CORRECT_PASSWORD) {
+                showPortfolio();
+            } else {
+                passwordError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        passwordSubmit.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Dark mode toggle (same as other pages)
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const toggleIcon = darkModeToggle?.querySelector('.toggle-icon');
+
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
+                }
+            }
+
+            applyTheme(currentTheme);
+
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isCurrentlyDark = document.body.classList.contains('dark-mode');
+                    const newTheme = isCurrentlyDark ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

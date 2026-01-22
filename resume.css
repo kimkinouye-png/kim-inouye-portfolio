@@ -67,11 +67,11 @@
 }
 
 /* Contact Information in Header */
-.resume-contact-header {
-    margin-top: 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.8;
-}
+    .resume-contact-header {
+        margin-top: 0.75rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.6 !important;
+    }
 
 .resume-contact-header p {
     margin-bottom: 0.5rem;
@@ -232,14 +232,20 @@ body.dark-mode .print-icon {
     }
 
     .section {
-        page-break-inside: avoid;
-        margin-bottom: 1rem !important;
-        padding-bottom: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+        padding-bottom: 0.5rem !important;
         border-bottom: 1px solid #ccc;
     }
 
     .section:first-of-type {
         margin-top: 0.5rem !important;
+        page-break-after: avoid;
+    }
+
+    /* Ensure Experience section starts on page 1 after Summary */
+    .section:nth-of-type(2) {
+        page-break-before: avoid;
+        margin-top: 0.25rem !important;
     }
 
     .section:last-child {
@@ -259,8 +265,12 @@ body.dark-mode .print-icon {
     }
 
     .resume-item {
-        margin-bottom: 1rem !important;
-        page-break-inside: avoid;
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* Allow page breaks within resume items for better flow */
+    .resume-item:not(:first-child) {
+        page-break-inside: auto;
     }
 
     .resume-item-header {
@@ -286,44 +296,24 @@ body.dark-mode .print-icon {
     }
 
     .hero {
-        margin-bottom: 2rem;
-        padding-bottom: 1.5rem;
+        margin-bottom: 1rem !important;
+        padding-bottom: 0.75rem !important;
         border-bottom: 2px solid #000;
     }
 
     .name {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 2rem !important;
+        margin-bottom: 0.3rem !important;
     }
 
     .title {
-        font-size: 1.2rem;
+        font-size: 1rem !important;
         color: #333 !important;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        page-break-after: avoid;
-    }
-
-    .section-content {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .resume-item {
-        page-break-inside: avoid;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem !important;
     }
 
     .resume-job-title {
-        font-size: 1.1rem;
-    }
-
-    .resume-bullets li {
-        page-break-inside: avoid;
-        margin-bottom: 0.5rem;
+        font-size: 1rem !important;
     }
 
     a {
