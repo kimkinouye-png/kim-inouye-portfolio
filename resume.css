@@ -49,6 +49,13 @@
     margin-left: auto;
 }
 
+/* Education entries - single line format */
+#education .resume-job-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
 .resume-bullets {
     list-style: none;
     padding-left: 0;
@@ -332,6 +339,16 @@ body.dark-mode .print-icon {
 
     .resume-job-title {
         font-size: 1rem !important;
+    }
+
+    /* Education entries - single line in print */
+    #education .resume-job-title {
+        font-size: 0.95rem !important;
+        font-weight: 500 !important;
+    }
+
+    .resume-company {
+        font-size: 0.9rem !important;
     }
 
     a {
