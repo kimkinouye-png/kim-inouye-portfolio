@@ -23,10 +23,14 @@ This portfolio site features:
 
 - `index.html` - Main portfolio page
 - `resume.html` - Interactive resume page
+- `portfolio.html` - Password-protected portfolio projects
+- `capacity-planner.html` - Capacity Planner case study page
 - `styles.css` - Main stylesheet
 - `resume.css` - Resume-specific styles
 - `script.js` - JavaScript functionality (dark mode, smooth scrolling, print)
 - `images/` - Image assets
+- `CHANGELOG.md` - Change history for this repo
+- `PERPLEXITY-CONTEXT.md` - Guide and file list for giving Perplexity Capacity Planner app code for architecture analysis
 
 ## Features
 
