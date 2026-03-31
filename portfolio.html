@@ -279,7 +279,7 @@
                 <li><a href="index.html" class="logo-link">K / I</a></li>
             </ul>
             <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-                <span class="toggle-icon"><span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span></span>
+                <span class="toggle-icon"><span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span></span>
             </button>
         </nav>
 
@@ -497,10 +497,10 @@
             function applyTheme(theme) {
                 if (theme === 'dark') {
                     document.body.classList.add('dark-mode');
-                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
                 } else {
                     document.body.classList.remove('dark-mode');
-                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
                 }
             }
 
@@ -510,8 +510,13 @@
                 darkModeToggle.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const isCurrentlyDark = document.body.classList.contains('dark-mode');
-                    const newTheme = isCurrentlyDark ? 'light' : 'dark';
+                    const opt = e.target.closest('.toggle-option');
+                    let newTheme;
+                    if (opt) {
+                        newTheme = opt.textContent.trim() === 'Dark' ? 'dark' : 'light';
+                    } else {
+                        newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                    }
                     applyTheme(newTheme);
                     localStorage.setItem('theme', newTheme);
                 });

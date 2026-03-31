@@ -2,6 +2,17 @@
   # This is a static site, no build command needed
   publish = "."
 
+# Pretty URLs (same as https://kim-inouye.netlify.app/resume)
+[[redirects]]
+  from = "/resume"
+  to = "/resume.html"
+  status = 200
+
+[[redirects]]
+  from = "/portfolio"
+  to = "/portfolio.html"
+  status = 200
+
 [[redirects]]
   # Redirect www to non-www (optional, customize as needed)
   from = "/*"

@@ -35,17 +35,17 @@ function initDarkModeToggle() {
     // Check for saved theme preference or default to light mode
     const currentTheme = localStorage.getItem('theme') || 'light';
     
-    // Initialize theme on page load
+    // Initialize theme on page load — "active" marks the *current* theme (not the other way around)
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
             if (toggleIcon) {
-                toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
+                toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
             }
         } else {
             document.body.classList.remove('dark-mode');
             if (toggleIcon) {
-                toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
+                toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
             }
         }
     }
@@ -53,17 +53,18 @@ function initDarkModeToggle() {
     // Apply initial theme
     applyTheme(currentTheme);
     
-    // Add click event listener
+    // Click "Dark" or "Light" to set that theme (avoids mismatch with a blind toggle)
     darkModeToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        const isCurrentlyDark = document.body.classList.contains('dark-mode');
-        const newTheme = isCurrentlyDark ? 'light' : 'dark';
-        
-        // Apply new theme
+        const opt = e.target.closest('.toggle-option');
+        let newTheme;
+        if (opt) {
+            newTheme = opt.textContent.trim() === 'Dark' ? 'dark' : 'light';
+        } else {
+            newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+        }
         applyTheme(newTheme);
-        
-        // Save theme preference
         localStorage.setItem('theme', newTheme);
     });
 }

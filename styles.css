@@ -371,6 +371,25 @@ main {
     margin-bottom: 0;
 }
 
+/* Building Tools: tool subsections (Capacity Planner / Rose) */
+.specialty-tool-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.specialty-tool-heading--spaced {
+    margin-top: 2rem;
+}
+
+.specialty-bold-label {
+    margin-top: 1.25rem;
+    margin-bottom: 0.35rem;
+}
+
 /* Link Placeholder Styling */
 .link-placeholder {
     color: #ff6b35;

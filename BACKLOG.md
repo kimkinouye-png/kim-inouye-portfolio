@@ -69,4 +69,62 @@ Parking lot for planned work. **Not committed to scope or timeline.**
 
 ---
 
+## Resume page — match updated site visual language
+
+**Intent:** Bring `resume.html` in line with the **current portfolio look** (Sol LeWitt grid, Inter, K/I nav, dark/light toggle, purple accents, ~800px editorial column, 2px section rules) and with whatever becomes the **canonical home** (`index.html` vs `index-v2-standalone.html`), without breaking **print / Save as PDF**.
+
+**Current state:** Resume already loads `styles.css` + `resume.css` and shares nav + theme toggle with the main site. Gaps to close when you pick this up: small inconsistencies (e.g. logo target `index.html` vs `/`), possible drift from newer home patterns (kickers, rules, link treatments), and **print** behavior after any layout change.
+
+---
+
+### Decisions (before implementation)
+
+- [ ] **Canonical home URL:** Should the K/I logo and any “back to site” link go to `/`, `/index.html`, or a future merged home path?
+- [ ] **Reference design:** Match **`index.html` + `styles.css`** only, or also borrow patterns from **`index-v2-standalone.html`** (e.g. hero rule, kicker styling, contact-style links)?
+- [ ] **Scope of change:** **Light touch** (tokens, borders, nav, links only) vs **section redesign** (restructure headings/spacing to mirror the new home).
+
+---
+
+### Phase 1 — Audit and shared tokens
+
+- [ ] Compare `resume.css` overrides against `styles.css` variables (`--text-*`, `--border-color`, link colors in light/dark).
+- [ ] List resume-only rules that fight the global grid (backgrounds, borders, max-width) and decide keep vs align.
+- [ ] Align **internal links** with routing plan (`/resume`, `/portfolio`, `/` as decided for the rest of the site).
+
+---
+
+### Phase 2 — Visual alignment (screen)
+
+- [ ] Unify **nav** with home (logo href, optional same spacing as `index.html`).
+- [ ] Match **hero block** rhythm to home if desired (name/title/contact line; optional thin rule under title).
+- [ ] Apply consistent **section titles** and **2px separators** between major blocks (Summary / Experience / Education).
+- [ ] Ensure **links** (email, LinkedIn, any future links) use the same purple / dark-mode treatment as `index.html`.
+- [ ] Quick pass on **mobile** breakpoints so the resume doesn’t feel narrower or “off” compared to home.
+
+---
+
+### Phase 3 — Print and accessibility
+
+- [ ] Re-test **Print** / “Save as PDF” after changes; adjust `@media print` in `resume.css` so margins, type size, and link visibility stay professional (hide or simplify nav/print chrome if needed).
+- [ ] Confirm **focus states** and **contrast** for interactive elements in both themes.
+
+---
+
+### Risks and gotchas
+
+- Heavy visual effects (animations, translucent cards) can **clutter PDF output** — keep print styles explicit.
+- Duplicating large chunks of CSS from a standalone home file increases drift; prefer **shared `styles.css`** + minimal `resume.css` deltas.
+
+---
+
+### Rough effort (when picked up)
+
+| Area | Ballpark |
+|------|----------|
+| Light token + nav + link alignment | 1–2 hours |
+| Fuller section/visual parity + responsive | 3–5 hours |
+| Print regression pass | 30–60 minutes |
+
+---
+
 *Added so we can resume this initiative without re-deriving the plan from chat.*
