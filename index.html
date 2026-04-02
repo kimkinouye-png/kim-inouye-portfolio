@@ -431,6 +431,23 @@ footer p {
   .excel-grid { grid-template-columns: 1fr; }
   .tools-grid { grid-template-columns: 1fr; }
   .hero-name { font-size: 3rem; }
+  /* Fixed nav overlaps hero when content is vertically centered; clear header + drop optical nudge */
+  .hero {
+    padding-top: 5.75rem;
+    padding-bottom: 3rem;
+    min-height: 100dvh;
+    min-height: 100vh;
+  }
+  .hero > div {
+    transform: none;
+  }
+  .wrap {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  nav {
+    padding: 1rem 1.25rem;
+  }
 }
 </style>
 </head>
