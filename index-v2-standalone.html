@@ -135,6 +135,11 @@ nav {
   display: flex;
   align-items: center;
   padding: 2rem 0 3rem;
+  box-sizing: border-box;
+}
+/* Pull block slightly up so the name sits nearer true viewport center under fixed nav */
+.hero > div {
+  transform: translateY(clamp(-2rem, -4vh, 0));
 }
 section {
   padding: 4rem 0;
