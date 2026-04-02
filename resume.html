@@ -1,119 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kim Inouye | Resume</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="resume.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kim Inouye | Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e0e;
+  --bg2: #161616;
+  --bg3: #1c1c1c;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --text: #f0ede6;
+  --muted: rgba(240,237,230,0.5);
+  --hint: rgba(240,237,230,0.28);
+  --accent: #8b7cf6;
+  --accent2: #c4b5fd;
+}
+[data-theme="light"] {
+  --bg: #f0ede6;
+  --bg2: #ffffff;
+  --bg3: #f5f3ef;
+  --border: rgba(0,0,0,0.1);
+  --border-hover: rgba(0,0,0,0.2);
+  --text: #1a1917;
+  --muted: rgba(26,25,23,0.55);
+  --hint: rgba(26,25,23,0.32);
+  --accent: #6d5ce6;
+  --accent2: #5b4bd4;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px;
+  z-index: 0;
+  pointer-events: none;
+}
+[data-theme="light"] body::after {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  background: rgba(14,14,14,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.3s;
+}
+[data-theme="light"] nav { background: rgba(240,237,230,0.92); }
+.nav-left { display: flex; align-items: center; gap: 1.5rem; }
+.logo {
+  font-family: "DM Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--accent2);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.print-btn {
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: none;
+  border: 0.5px solid var(--border-hover);
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.print-btn:hover { color: var(--text); border-color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 0.4rem; }
+.theme-btn {
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: none;
+  border: 0.5px solid transparent;
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.theme-btn.active { color: var(--text); border-color: var(--border-hover); }
+.theme-btn:hover { color: var(--text); }
+.theme-sep { color: var(--hint); font-size: 0.8rem; font-family: "DM Mono", monospace; }
+.hero-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.hero-links a {
+  font-family: "DM Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--accent2);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--accent);
+  padding-bottom: 2px;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s;
+}
+.hero-links a:hover { opacity: 0.65; }
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 3rem 4rem;
+}
+
+/* HEADER */
+.resume-header { padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 0.5px solid var(--border); }
+.resume-name {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 0.4rem;
+}
+.resume-tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.25rem;
+}
+
+
+
+
+/* TWO COLUMN LAYOUT */
+.resume-body {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* MAIN COLUMN */
+.resume-section { margin-bottom: 2.5rem; }
+.section-label {
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hint);
+  margin-bottom: 1.25rem;
+}
+.summary-text {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  font-weight: 300;
+  max-width: 580px;
+}
+
+/* EXPERIENCE */
+.role { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 0.5px solid var(--border); }
+.role:last-child { border-bottom: none; padding-bottom: 0; }
+.role-header { margin-bottom: 0.75rem; }
+.role-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+.role-meta {
+  font-family: "DM Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  letter-spacing: 0.02em;
+}
+.role-intro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+}
+.role-bullets { list-style: none; }
+.role-bullets li {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-left: 1rem;
+  position: relative;
+  margin-bottom: 0.4rem;
+  font-weight: 300;
+}
+.role-bullets li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--hint);
+}
+
+/* SIDEBAR */
+.sidebar-section { margin-bottom: 2rem; }
+.sidebar-label {
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hint);
+  margin-bottom: 1rem;
+}
+.skill-group { margin-bottom: 1.25rem; }
+.skill-group-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.skill-tag {
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  letter-spacing: 0.02em;
+}
+.edu-item { margin-bottom: 0.75rem; }
+.edu-degree { font-size: 0.88rem; font-weight: 500; color: var(--text); }
+.edu-school {
+  font-family: "DM Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* PRINT STYLES */
+@media print {
+  nav { display: none; }
+  body { background: white; color: #1a1917; }
+  body::before, body::after { display: none; }
+  .wrap { padding: 1rem 2rem; max-width: 100%; }
+  .resume-body { grid-template-columns: 1fr 220px; gap: 2rem; }
+  .resume-name { font-size: 2rem; color: #1a1917; }
+  .resume-tagline, .summary-text, .role-intro, .role-bullets li, .skill-tag, .edu-degree { color: #444; }
+  .section-label, .sidebar-label, .role-meta, .edu-school { color: #888; }
+  
+  .role { border-bottom-color: #e5e5e5; }
+  .skill-tag { background: #f5f5f5; border-color: #ddd; }
+  .resume-header { border-bottom-color: #e5e5e5; }
+}
+
+@media (max-width: 680px) {
+  .resume-body { grid-template-columns: 1fr; }
+  .wrap { padding: 5rem 1.5rem 3rem; }
+}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <ul class="nav-links">
-            <li><a href="index.html" class="logo-link">K / I</a></li>
-        </ul>
-        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-            <span class="toggle-icon"><span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span></span>
-        </button>
-        <button id="printResume" class="print-button" aria-label="Print resume" title="Print or Save as PDF">
-            <span class="print-icon">⌘P</span>
-        </button>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="resume-main">
-        <!-- Header -->
-        <section class="hero">
-            <h1 class="name">Kim Inouye</h1>
-            <p class="title">product + design + operations leader</p>
-            <div class="resume-contact-header">
-                <p><a href="mailto:kim.k.inouye@gmail.com">kim.k.inouye@gmail.com</a> • <a href="https://www.linkedin.com/in/product-design-operations/" target="_blank">linkedin.com/in/product-design-operations</a></p>
-            </div>
-        </section>
+<nav>
+  <div class="nav-left">
+    <a class="logo" href="/">K / I</a>
+    <button class="print-btn" onclick="window.print()">⌘P Print</button>
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn active" id="btn-dark">Dark</button>
+    <span class="theme-sep">|</span>
+    <button class="theme-btn" id="btn-light">Light</button>
+  </div>
+</nav>
 
-        <!-- Professional Summary -->
-        <section class="section">
-            <h2 class="section-title">Summary</h2>
-            <p class="section-content">
-                I'm a strategic operations leader who specializes in driving excellence and transformation across large, complex organizations. Over the past 12 years, I've built the operational infrastructure that helps creative and technical teams execute at enterprise scale—from translating business strategy into measurable outcomes to implementing scalable frameworks and OKR systems that actually work. Most recently, I've been focused on AI transformation, helping 300+ person teams navigate how to adopt and govern these new tools responsibly.
-            </p>
-        </section>
+<div class="wrap">
 
-        <!-- Experience -->
-        <section class="section">
-            <h2 class="section-title">Experience</h2>
-            
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">Sr Staff Program Manager, AI & Agentic, Payments, Design Ops</h3>
-                    <span class="resume-company">PayPal, 2024–Present</span>
-                </div>
-                <ul class="resume-bullets">
-                    <li>Leading the design and development of agentic AI tools that help us create designs compliant with accessibility standards, content aligned with brand voice, and work that's properly localized for global markets. I'm working primarily with tools like Replit and Cursor.</li>
-                    <li>Optimizing our workflows through AI-powered automation—I've reduced operational overhead by 60-80% by automating things like UK Consumer Duty compliance reviews and routine administrative tasks using ChatGPT, Claude, and Copilot.</li>
-                    <li>Securing enterprise AI tool approval by working closely with our risk, compliance, and legal teams. I recently got general counsel approval for Figma Make, which required navigating complex regulatory requirements and building trust across functions.</li>
-                    <li>Running strategic planning and program management for the broader organization—this includes annual planning, capacity planning, multi-year roadmaps, headcount strategy, and coordinating global programs across product, design, engineering and marketing.</li>
-                    <li>Managing financial operations and building business cases for major investments, like securing budget approval for our Figma enterprise plan and navigating governance requirements with legal and compliance.</li>
-                </ul>
-            </div>
+  <header class="resume-header">
+    <h1 class="resume-name">Kim Inouye</h1>
+    <p class="resume-tagline">product + design + operations leader</p>
+    <div class="hero-links">
+      <a href="/">Back to site</a>
+      <a href="https://www.linkedin.com/in/product-design-operations/" target="_blank">LinkedIn</a>
+      <a href="mailto:kim.k.inouye@gmail.com">Email</a>
+    </div>
+  </header>
 
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">Chief of Staff, Global Product Design</h3>
-                    <span class="resume-company">PayPal, 2022–2024</span>
-                </div>
-                <p class="resume-job-description">As the Chief of Staff for the Global Product Design and later Customer Experiences organizations, I supported the leadership team for a 300+ multidisciplinary team across UX design, content design, UX Research, product inclusion, product enablement and operations. I led the leadership team in annual planning and resource allocation for a $50M+ budget. I made sure the executive team could execute on strategy while building the systems that kept product and design running smoothly.</p>
-                <ul class="resume-bullets">
-                    <li>Facilitated strategic planning for our 12+ VP executive team—OKR development, capacity planning, roadmap development, and coordinating headcount strategy to align talent acquisition with where we were heading as an organization.</li>
-                    <li>Built out our operating rhythms from scratch, establishing mechanisms for long-term planning, quarterly business reviews, and operational excellence. Created all the documentation, workflow diagrams, and performance dashboards to keep everyone aligned.</li>
-                    <li>Coordinated budget planning and forecasting, translating financial data into strategic narratives that helped leadership make smarter resource decisions.</li>
-                    <li>Led major organizational transformation initiatives, reporting progress transparently, flagging risks proactively, and communicating decisions with clarity.</li>
-                    <li>Focused heavily on team culture—I planned offsites, established team rituals, and prepared all-hands communications. We raised engagement scores while scaling the team by 40%.</li>
-                </ul>
-            </div>
+  <div class="resume-body">
 
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">Chief of Staff, Product Design</h3>
-                    <span class="resume-company">Etsy, 2020–2022</span>
-                </div>
-                <p class="resume-job-description">I built Etsy's internal product design function from zero to one during a period of hypergrowth. The focus was establishing the operational infrastructure needed to scale the design organization effectively.</p>
-                <ul class="resume-bullets">
-                    <li>Developed the OKR framework from the ground up, which dramatically improved how we set goals and stayed aligned with broader product and business objectives.</li>
-                    <li>Improved employee engagement from 72% to 89% by taking a user-centered design approach to our operational frameworks and learning & development programming.</li>
-                </ul>
-            </div>
+    <!-- MAIN COLUMN -->
+    <div class="resume-main">
 
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">Director of Digital Experience (Product Director)</h3>
-                    <span class="resume-company">FLOR Inc., 2015–2017</span>
-                </div>
-                <p class="resume-job-description">I managed a $14M P&L with full accountability for revenue and operational expenses. My main achievement was increasing our conversion rate by 120% through product optimization, UI/UX improvements, and data-driven merchandising. I also led the product and engineering teams in developing innovative design tools that worked both online and in our retail stores.</p>
-            </div>
-        </section>
+      <div class="resume-section">
+        <p class="section-label">Summary</p>
+        <p class="summary-text">People have described me as having a quick mind and a big heart, and I think that's the through-line in everything I do. I show up fully present, especially when things get charged or confusing. I've learned that the most valuable thing I can bring into a room isn't a framework or a deck. It's the ability to stay calm, listen deeply, and shape clarity out of ambiguity. Most recently that looked like leading AI transformation and strategic operations for a 300+ person global design org at PayPal.</p>
+      </div>
 
-        <!-- Education -->
-        <section id="education" class="section">
-            <h2 class="section-title">Education</h2>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">MA, Data Visualization, Maryland Institute College of Art</h3>
-                </div>
-            </div>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <h3 class="resume-job-title">BS, Mathematics, University of Illinois at Chicago</h3>
-                </div>
-            </div>
-        </section>
+      <div class="resume-section">
+        <p class="section-label">Experience</p>
 
-    </main>
+        <div class="role">
+          <div class="role-header">
+            <p class="role-title">Sr Staff Program Manager, AI &amp; Agentic, Payments, Design Ops</p>
+            <p class="role-meta">PayPal &nbsp;·&nbsp; 2024 – Present</p>
+          </div>
+          <ul class="role-bullets">
+            <li>Leading design and development of agentic AI tools — designs compliant with accessibility standards, content aligned with brand voice, localized for global markets. Working primarily with Replit and Cursor.</li>
+            <li>Reduced operational overhead 60–80% through AI-powered automation, including UK Consumer Duty compliance reviews and routine administrative tasks using ChatGPT, Claude, and Copilot.</li>
+            <li>Secured enterprise AI tool approval by navigating complex regulatory requirements with risk, compliance, and legal — including general counsel approval for Figma Make.</li>
+            <li>Running strategic planning and program management for the broader org: annual planning, capacity planning, multi-year roadmaps, headcount strategy, and global program coordination across product, design, engineering, and marketing.</li>
+            <li>Established and managed operating rhythms for teams of 120+ across three continents (NA, APAC, EMEA).</li>
+          </ul>
+        </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <div class="role">
+          <div class="role-header">
+            <p class="role-title">Chief of Staff, Global Product Design</p>
+            <p class="role-meta">PayPal &nbsp;·&nbsp; 2022 – 2024</p>
+          </div>
+          <p class="role-intro">Strategic operations leader for a 300+ person global design organization spanning product design, content design, UX research, design systems, and product enablement across three continents.</p>
+          <ul class="role-bullets">
+            <li>Facilitated executive team of 12 VPs and Directors in strategic planning and resource allocation ($50M+ budget).</li>
+            <li>Drove annual planning process: OKR development, capacity planning, and roadmap development for the global org.</li>
+            <li>Built operating rhythms from scratch — long-term planning, quarterly business reviews, performance dashboards, and all documentation.</li>
+            <li>Scaled operations for 40% growth (200 to 300 employees) while improving team engagement 25%.</li>
+            <li>Led major organizational transformation initiatives, coordinating headcount strategy and flagging risks proactively across functions.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-header">
+            <p class="role-title">Head of Design Operations</p>
+            <p class="role-meta">Etsy &nbsp;·&nbsp; 2020 – 2022</p>
+          </div>
+          <p class="role-intro">Built design operations from 0 to 1 during hypergrowth, establishing the strategic planning and operational infrastructure needed to scale.</p>
+          <ul class="role-bullets">
+            <li>Built operations function for a rapidly scaling organization (30 to 100+ employees).</li>
+            <li>Developed OKR framework adopted company-wide, improving goal clarity and alignment.</li>
+            <li>Improved team engagement from 72% to 89% through operational frameworks and cultural programming.</li>
+            <li>Implemented measurement plan and dashboard providing executive visibility into capacity, velocity, and impact.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-header">
+            <p class="role-title">Director of Digital Experience (Product Director)</p>
+            <p class="role-meta">FLOR Inc. &nbsp;·&nbsp; 2015 – 2017</p>
+          </div>
+          <ul class="role-bullets">
+            <li>Managed $14M P&amp;L with full revenue and operational expense accountability.</li>
+            <li>Increased conversion rate 120% through UI/UX and merchandising optimization.</li>
+            <li>Led product and engineering teams in developing innovative design tools for online and retail.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-header">
+            <p class="role-title">Program Manager, Strategic Initiatives</p>
+            <p class="role-meta">Grainger &nbsp;·&nbsp; 2012 – 2014</p>
+          </div>
+          <ul class="role-bullets">
+            <li>Led cross-functional programs across product, design, marketing, and sales for Fortune 500.</li>
+            <li>Pioneered content strategy generating 200%+ increase in lead volume.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="resume-sidebar">
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Skills</p>
+        <div class="skill-group">
+          <p class="skill-group-name">AI &amp; Automation</p>
+          <div class="skill-tags">
+            <span class="skill-tag">ChatGPT</span>
+            <span class="skill-tag">Claude</span>
+            <span class="skill-tag">GitHub Copilot</span>
+            <span class="skill-tag">Cursor</span>
+            <span class="skill-tag">Replit</span>
+            <span class="skill-tag">AI Governance</span>
+            <span class="skill-tag">Workflow Automation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-name">Operations</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Strategic Planning</span>
+            <span class="skill-tag">OKR Frameworks</span>
+            <span class="skill-tag">Resource Allocation</span>
+            <span class="skill-tag">Budget Management</span>
+            <span class="skill-tag">Operating Rhythms</span>
+            <span class="skill-tag">0 to 1 Building</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-name">Leadership</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Executive Facilitation</span>
+            <span class="skill-tag">Stakeholder Alignment</span>
+            <span class="skill-tag">Change Management</span>
+            <span class="skill-tag">Global Ops</span>
+            <span class="skill-tag">Cross-functional</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-name">Tools</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Asana</span>
+            <span class="skill-tag">Jira</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Tableau</span>
+            <span class="skill-tag">Airtable</span>
+            <span class="skill-tag">Miro</span>
+            <span class="skill-tag">Confluence</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Education</p>
+        <div class="edu-item">
+          <p class="edu-degree">MA, Data Analytics &amp; Visualization</p>
+          <p class="edu-school">Maryland Institute College of Art</p>
+        </div>
+        <div class="edu-item">
+          <p class="edu-degree">BS, Mathematics</p>
+          <p class="edu-school">University of Illinois at Chicago</p>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Key Numbers</p>
+        <div class="skill-group">
+          <div class="skill-tags" style="flex-direction:column; gap:0.5rem;">
+            <span class="skill-tag" style="width:100%;">300+ employees supported globally</span>
+            <span class="skill-tag" style="width:100%;">$50M+ budget managed</span>
+            <span class="skill-tag" style="width:100%;">80% efficiency via AI automation</span>
+            <span class="skill-tag" style="width:100%;">72% to 89% engagement improvement</span>
+            <span class="skill-tag" style="width:100%;">120% conversion rate increase</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("btn-dark").classList.toggle("active", t === "dark");
+  document.getElementById("btn-light").classList.toggle("active", t === "light");
+  try { localStorage.setItem("theme", t); } catch (e) {}
+}
+document.getElementById("btn-dark").addEventListener("click", function () { setTheme("dark"); });
+document.getElementById("btn-light").addEventListener("click", function () { setTheme("light"); });
+var saved = "dark";
+try { saved = localStorage.getItem("theme") || "dark"; } catch (e) {}
+setTheme(saved);
+</script>
+</body></html>
