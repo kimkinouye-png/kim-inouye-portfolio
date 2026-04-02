@@ -310,6 +310,21 @@ section {
   border-color: var(--border-hover);
   background: var(--bg3);
 }
+.tool-card--link {
+  position: relative;
+  cursor: pointer;
+}
+.tool-card-hit-area {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 10px;
+}
+.tool-card--link .tool-link,
+.tool-card--link .tool-card-actions {
+  position: relative;
+  z-index: 1;
+}
 .tool-label {
   font-family: 'DM Mono', monospace;
   font-size: 0.7rem;
@@ -571,7 +586,8 @@ footer p {
     <h2 class="section-title">Things I've built</h2>
     <div class="tools-grid">
 
-      <div class="tool-card">
+      <div class="tool-card tool-card--link">
+        <a href="https://capacity-planner.netlify.app/" class="tool-card-hit-area" target="_blank" rel="noopener noreferrer" aria-label="Open Capacity Planner app"></a>
         <p class="tool-label">Capacity Planner</p>
         <h3>Design team capacity planning</h3>
         <p>A custom tool for planning how many designers were needed to support a product roadmap.</p>
@@ -600,13 +616,14 @@ footer p {
           <li>Compare staffing scenarios</li>
           <li>Customize the data model per team</li>
         </ul>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-          <a href="https://capacity-planner.netlify.app/" class="tool-link" target="_blank">capacity-planner.netlify.app ↗</a>
+        <div class="tool-card-actions" style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="https://capacity-planner.netlify.app/" class="tool-link" target="_blank" rel="noopener noreferrer">capacity-planner.netlify.app ↗</a>
           <a href="/capacity-planner.html" class="tool-link">View case study ↗</a>
         </div>
       </div>
 
-      <div class="tool-card">
+      <div class="tool-card tool-card--link">
+        <a href="https://rose-website-tan.vercel.app/index.html" class="tool-card-hit-area" target="_blank" rel="noopener noreferrer" aria-label="Open Rose app"></a>
         <p class="tool-label">Rose</p>
         <h3>Rose is a feedback decoder</h3>
         <p>Takes ambiguous and confusing feedback and helps the person re-frame it and take action.</p>
