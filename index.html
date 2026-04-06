@@ -320,7 +320,7 @@ section {
   z-index: 0;
   border-radius: 10px;
 }
-.tool-card--link .tool-link,
+.tool-card--link .tool-btn,
 .tool-card--link .tool-card-actions {
   position: relative;
   z-index: 1;
@@ -328,10 +328,13 @@ section {
 .tool-label {
   font-family: 'DM Mono', monospace;
   font-size: 0.7rem;
-  color: var(--hint);
+  color: rgba(240, 237, 230, 0.52);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
+}
+[data-theme="light"] .tool-label {
+  color: rgba(26, 25, 23, 0.5);
 }
 .tool-card h3 {
   font-size: 1rem;
@@ -344,6 +347,10 @@ section {
   line-height: 1.7;
   margin-bottom: 1.25rem;
 }
+/* Stronger contrast for project blurbs (not the small label) */
+.tool-card p:not(.tool-label) {
+  color: rgba(240, 237, 230, 0.82);
+}
 .tool-features {
   list-style: none;
   margin-bottom: 1.25rem;
@@ -353,7 +360,7 @@ section {
 }
 .tool-features li {
   font-size: 0.82rem;
-  color: var(--muted);
+  color: rgba(240, 237, 230, 0.76);
   padding-left: 1rem;
   position: relative;
   line-height: 1.5;
@@ -362,20 +369,74 @@ section {
   content: '·';
   position: absolute;
   left: 0;
-  color: var(--hint);
+  color: rgba(240, 237, 230, 0.42);
 }
 .tool-diagram { margin-bottom: 1.25rem; }
-.tool-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--accent2);
-  text-decoration: none;
-  border-bottom: 0.5px solid var(--accent);
-  padding-bottom: 1px;
-  letter-spacing: 0.02em;
-  transition: opacity 0.2s;
+[data-theme="light"] .tool-card p:not(.tool-label) {
+  color: rgba(26, 25, 23, 0.85);
 }
-.tool-link:hover { opacity: 0.65; }
+[data-theme="light"] .tool-features li {
+  color: rgba(26, 25, 23, 0.78);
+}
+[data-theme="light"] .tool-features li::before {
+  color: rgba(26, 25, 23, 0.4);
+}
+
+.tool-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-hover);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.2;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+  max-width: 100%;
+  word-break: break-word;
+  justify-content: center;
+  text-align: center;
+}
+.tool-btn:hover {
+  border-color: var(--accent);
+  background: rgba(139, 124, 246, 0.12);
+  box-shadow: 0 0 0 1px rgba(139, 124, 246, 0.15);
+}
+.tool-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.tool-btn--secondary {
+  border-color: var(--border);
+  background: transparent;
+  color: rgba(240, 237, 230, 0.92);
+}
+.tool-btn--secondary:hover {
+  border-color: var(--border-hover);
+  background: var(--bg3);
+}
+[data-theme="light"] .tool-btn {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .tool-btn--secondary {
+  color: rgba(26, 25, 23, 0.92);
+}
+[data-theme="light"] .tool-btn--secondary:hover {
+  background: var(--bg3);
+}
 
 /* PROSE SECTIONS */
 .prose-section h3 {
@@ -615,9 +676,9 @@ footer p {
           <li>Compare staffing scenarios</li>
           <li>Customize the data model per team</li>
         </ul>
-        <div class="tool-card-actions" style="display:flex; gap:1rem; flex-wrap:wrap;">
-          <a href="https://capacity-planner.netlify.app/" class="tool-link" target="_blank" rel="noopener noreferrer">capacity-planner.netlify.app ↗</a>
-          <a href="/capacity-planner.html" class="tool-link">View case study ↗</a>
+        <div class="tool-card-actions">
+          <a href="https://capacity-planner.netlify.app/" class="tool-btn" target="_blank" rel="noopener noreferrer">capacity-planner.netlify.app ↗</a>
+          <a href="/capacity-planner.html" class="tool-btn tool-btn--secondary">View case study ↗</a>
         </div>
       </div>
 
@@ -650,7 +711,9 @@ footer p {
           <li>Pulls from top management research</li>
           <li>Reframes ambiguous feedback into action</li>
         </ul>
-        <a href="https://rose-website-tan.vercel.app/index.html" class="tool-link" target="_blank">rose-website-tan.vercel.app ↗</a>
+        <div class="tool-card-actions">
+          <a href="https://rose-website-tan.vercel.app/index.html" class="tool-btn" target="_blank" rel="noopener noreferrer">rose-website-tan.vercel.app ↗</a>
+        </div>
       </div>
 
     </div>
