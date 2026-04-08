@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kim Inouye — Portfolio Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f0f;
+  --bg2: #161616;
+  --surface: #1c1c1c;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0ede6;
+  --text-muted: rgba(240,237,230,0.45);
+  --accent: #7b7ce8;
+  --teal: #4ecdc4;
+  --grid: rgba(255,255,255,0.032);
+  --grid-strong: rgba(255,255,255,0.062);
+  --grid-diag: rgba(255,255,255,0.016);
+}
+[data-theme="light"] {
+  --bg: #f0ede6;
+  --bg2: #e8e4db;
+  --surface: #ffffff;
+  --border: rgba(0,0,0,0.09);
+  --text: #1a1a1a;
+  --text-muted: rgba(26,26,26,0.48);
+  --accent: #5555cc;
+  --teal: #2a9d8f;
+  --grid: rgba(0,0,0,0.038);
+  --grid-strong: rgba(0,0,0,0.075);
+  --grid-diag: rgba(0,0,0,0.018);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;transition:background 0.4s,color 0.4s;}
+
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.grid-bg svg{width:100%;height:100%;}
+
+.chrome{position:fixed;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:100;border-bottom:1px solid var(--border);background:var(--bg);transition:background 0.4s,border-color 0.4s;}
+.logo{font-size:13px;letter-spacing:0.1em;color:var(--accent);font-weight:400;}
+.chrome-right{display:flex;align-items:center;gap:20px;}
+.counter{font-size:11px;letter-spacing:0.12em;color:var(--text-muted);}
+.theme-toggle{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.tbtn{background:none;border:none;color:var(--text-muted);font-size:11px;font-family:'DM Sans',sans-serif;letter-spacing:0.1em;padding:5px 12px;cursor:pointer;transition:all 0.2s;}
+.tbtn.on{background:var(--surface);color:var(--text);}
+
+.deck{position:fixed;inset:50px 0 0 0;z-index:10;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:56px 80px;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1),transform 0.4s cubic-bezier(0.4,0,0.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateY(0);}
+
+.progress{position:fixed;bottom:0;left:0;height:2px;background:var(--accent);transition:width 0.4s ease;z-index:100;}
+
+.nav-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:0.12em;color:var(--text-muted);z-index:100;}
+.nk{width:22px;height:22px;border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-muted);}
+
+.script-panel{position:fixed;bottom:40px;right:0;width:320px;max-height:320px;overflow-y:auto;background:var(--bg2);border-left:1px solid var(--border);border-top:1px solid var(--border);padding:20px 22px;z-index:90;transform:translateX(100%);transition:transform 0.3s ease;}
+.script-panel.open{transform:translateX(0);}
+.slabel{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.stext{font-size:13px;line-height:1.75;color:var(--text-muted);font-weight:300;}
+
+/* Typography */
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+.display{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(48px,6vw,86px);line-height:1.0;color:var(--text);letter-spacing:-0.02em;margin-bottom:28px;}
+.display em{font-style:italic;font-weight:400;}
+.headline{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4vw,50px);line-height:1.1;color:var(--text);letter-spacing:-0.02em;margin-bottom:20px;}
+.body-lg{font-size:clamp(18px,2vw,24px);line-height:1.75;color:var(--text-muted);max-width:640px;font-weight:300;}
+.body{font-size:17px;line-height:1.7;color:var(--text-muted);font-weight:300;}
+
+.divider{width:36px;height:1px;background:var(--accent);margin:24px 0;}
+.accent-line{width:100%;height:1px;background:linear-gradient(to right,var(--accent),transparent);margin:22px 0;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;align-items:start;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;transition:background 0.4s,border-color 0.4s;}
+
+.clean-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.clean-list li{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:var(--text-muted);font-weight:300;line-height:1.5;}
+.clean-list li::before{content:'—';color:var(--accent);flex-shrink:0;margin-top:1px;}
+
+.pill{display:inline-block;padding:4px 12px;border:1px solid var(--accent);border-radius:20px;font-size:11px;letter-spacing:0.06em;color:var(--accent);margin-right:8px;margin-bottom:8px;}
+
+.stat-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--teal);line-height:1;}
+.stat-label{font-size:11px;letter-spacing:0.08em;color:var(--text-muted);text-transform:uppercase;margin-top:4px;}
+
+.bar-bg{flex:1;height:2px;background:var(--border);border-radius:2px;}
+.bar-fill{height:2px;background:var(--teal);border-radius:2px;}
+
+.ghost-num{font-family:'Playfair Display',serif;font-size:180px;font-weight:700;color:var(--border);position:absolute;right:70px;bottom:-10px;line-height:1;letter-spacing:-0.05em;pointer-events:none;user-select:none;}
+
+.quote-block{padding:20px 24px;border-left:2px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0;margin-top:24px;}
+
+table.mt{width:100%;border-collapse:collapse;}
+table.mt th{text-align:left;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);padding:8px 0;border-bottom:1px solid var(--border);}
+table.mt td{padding:14px 0;font-size:16px;border-bottom:1px solid var(--border);vertical-align:top;}
+table.mt td:first-child{color:var(--text-muted);font-size:15px;width:38%;}
+table.mt td.num{color:var(--teal);font-weight:500;text-align:right;}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"><svg id="gsv" xmlns="http://www.w3.org/2000/svg"></svg></div>
+
+<div class="chrome">
+  <div class="logo">K / I</div>
+  <div class="chrome-right">
+    <span class="counter" id="ctr">01 / 19</span>
+    <div class="theme-toggle">
+      <button class="tbtn on" id="bd" onclick="setTheme('dark')">Dark</button>
+      <button class="tbtn" id="bl" onclick="setTheme('light')">Light</button>
+    </div>
+  </div>
+</div>
+
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+<!-- 01 Title -->
+<div class="slide active" data-s="Thank you all for having me. I'm Kim — currently a Senior Staff Program Manager at PayPal, where I've spent the last four years as the architect of how the design org operates and most recently running our AI pilot program. Today I'm going to walk you through two bodies of work — the ways of working system I built from scratch and drove to full adoption, and the AI program I run today. We'll close with a couple of tools I built on my own time. I want this to feel like a conversation, so ask questions as we go. Let's dig in.">
+  <div class="eyebrow">Portfolio Presentation</div>
+  <div class="display">Kim Inouye</div>
+  <div class="body-lg">Principal Design Operations Program Manager</div>
+  <div class="divider"></div>
+  <div style="margin-top:8px;">
+    <span class="pill">Ways of Working</span>
+    <span class="pill">AI Transformation</span>
+    <span class="pill">System Building</span>
+  </div>
+  <div class="ghost-num" style="font-size:220px;opacity:0.3;">KI</div>
+</div>
+
+<!-- 02 About Me -->
+<div class="slide" data-s="I grew up building computers with my dad. That curiosity about how things work — and how to make them work better — never left. I've worked across design operations, product management, content design, and information architecture. My education spans mathematics and data visualization. I think in systems. I design in information. One of my favorite artists is Sol LeWitt — and you can see his influence on my personal website, where I built a continuously evolving design in the spirit of his wall drawings. The grid behind this presentation is part of that same thinking.">
+  <div class="eyebrow">About me</div>
+  <div class="headline">Systems thinker,<br>by nature and by practice.</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Background</div>
+      <ul class="clean-list">
+        <li>Grew up building computers with my dad</li>
+        <li>Worked across design operations, product management, content design, and information architecture</li>
+        <li>The evolving world of technology and systems thinking has been a throughline my whole life</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Education + Influences</div>
+      <ul class="clean-list">
+        <li>BS, Mathematics — University of Illinois at Chicago</li>
+        <li>MA, Data Visualization — Maryland Institute College of Art</li>
+        <li>Favorite artist: Sol LeWitt. The grid behind this presentation is part of that influence. A system that generates something beautiful.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 03 Chapter 1 -->
+<div class="slide" data-s="The first body of work I want to share is the operational system I built at PayPal. This is the foundation — without it, none of the AI work that follows would have been possible.">
+  <div class="eyebrow">Chapter 01</div>
+  <div class="display">Ways of<br><em>Working</em></div>
+  <div class="body-lg" style="max-width:480px;">Building the operational infrastructure for a 300+ person global design org — from zero.</div>
+  <div class="ghost-num">01</div>
+</div>
+
+<!-- 03 The Problem -->
+<div class="slide" data-s="When I joined PayPal's design org two and a half years ago, designers were burning out. Product managers from across the company were pulling them into ad hoc requests with no context and unrealistic timelines — constant context switching, no boundaries, no structure. No manager could name everything their team was working on. This view didn't exist. I built it.">
+  <div class="eyebrow">The Problem</div>
+  <div class="headline">300+ designers.<br>Zero visibility.</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <ul class="clean-list">
+      <li>Work arrived via Slack from anywhere, anytime</li>
+      <li>No intake criteria — any request became a mandate</li>
+      <li>Managers couldn't see what teams were working on</li>
+    </ul>
+    <ul class="clean-list">
+      <li>Designers had no way to say no without being the bad guy</li>
+      <li>Constant context switching across projects</li>
+      <li>No shared language for sizing or handing off work</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 04 XD Process -->
+<div class="slide" data-s="This is the ideal model — the phases and milestones that should happen in a design workstream. When I joined, none of this existed. This view can feel waterfall, and that's a real tension — because designers don't work linearly. What I built had to honor both how design work actually flows and the need for enough structure that leadership could see what was happening.">
+  <div class="eyebrow">PDLC</div>
+  <div class="headline">The XD Process</div>
+  <div class="body" style="margin-bottom:28px;max-width:560px;">A shared model for how design work moves — from backlog to delivery. Built to feel agile, not waterfall.</div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <div class="card" style="padding:14px 18px;text-align:center;min-width:110px;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Discover</div>
+      <div style="font-size:13px;color:var(--text);">Research</div>
+    </div>
+    <div style="color:var(--accent);font-size:18px;">→</div>
+    <div class="card" style="padding:14px 18px;text-align:center;min-width:110px;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Define</div>
+      <div style="font-size:13px;color:var(--text);">Strategy</div>
+    </div>
+    <div style="color:var(--accent);font-size:18px;">→</div>
+    <div class="card" style="padding:14px 18px;text-align:center;min-width:110px;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Design</div>
+      <div style="font-size:13px;color:var(--text);">Prototype</div>
+    </div>
+    <div style="color:var(--accent);font-size:18px;">→</div>
+    <div class="card" style="padding:14px 18px;text-align:center;min-width:110px;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Develop</div>
+      <div style="font-size:13px;color:var(--text);">Build</div>
+    </div>
+    <div style="color:var(--accent);font-size:18px;">→</div>
+    <div class="card" style="padding:14px 18px;text-align:center;min-width:110px;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Deliver</div>
+      <div style="font-size:13px;color:var(--text);">Launch</div>
+    </div>
+  </div>
+  <div style="margin-top:22px;" class="body">Every phase has entry criteria. Work moves forward when the team is ready — not when a PM is impatient.</div>
+</div>
+
+<!-- 05 Design Backlog -->
+<div class="slide" data-s="One of the biggest shifts I introduced was the design backlog — and it came from a specific problem I observed. Designers were aligned to product managers rather than working as a true triad, which meant they were managing multiple roadmaps simultaneously with no way to prioritize across them. Requests were treated as mandates. The backlog solved both problems. If it wasn't in the backlog it didn't get design time. And to get into the backlog, the work had to be defined. That single rule changed the relationship between design and product.">
+  <div class="eyebrow">The Rule That Changed Everything</div>
+  <div class="headline">If it's not in the backlog,<br>it doesn't get design time.</div>
+  <div class="accent-line"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:40px;align-items:start;">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Before</div>
+      <ul class="clean-list">
+        <li>Any Slack message became a design request</li>
+        <li>No criteria for what was ready to design</li>
+        <li>Designers absorbed all political friction</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">After</div>
+      <ul class="clean-list">
+        <li>Problem must be defined to enter the backlog</li>
+        <li>Designers could say "talk to Kim" and keep working</li>
+        <li>PMs had full visibility — no more black box</li>
+      </ul>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <!-- Asana-style backlog mockup -->
+      <div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:0.7;"></div>
+        <div style="font-size:11px;color:var(--text);letter-spacing:0.06em;font-weight:500;">Design Backlog</div>
+      </div>
+      <!-- Column headers -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:6px 14px;border-bottom:1px solid var(--border);">
+        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Task</div>
+        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);text-align:center;">Size</div>
+        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);text-align:center;">Status</div>
+      </div>
+      <!-- Row 1 -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:9px 14px;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:12px;color:var(--text);">Checkout redesign</div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--accent-soft,rgba(123,124,232,0.12));color:var(--accent);">L</span></div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(78,205,196,0.12);color:var(--teal);">Active</span></div>
+      </div>
+      <!-- Row 2 -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:9px 14px;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:12px;color:var(--text);">Wallet onboarding</div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--accent-soft,rgba(123,124,232,0.12));color:var(--accent);">M</span></div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(78,205,196,0.12);color:var(--teal);">Active</span></div>
+      </div>
+      <!-- Row 3 -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:9px 14px;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:12px;color:var(--text);">BNPL edge cases</div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--accent-soft,rgba(123,124,232,0.12));color:var(--accent);">S</span></div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(240,237,230,0.1);color:var(--text-muted);">Backlog</span></div>
+      </div>
+      <!-- Row 4 -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:9px 14px;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:12px;color:var(--text-muted);font-style:italic;">Ad hoc request</div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(232,147,106,0.12);color:#e8936a;">?</span></div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(232,147,106,0.12);color:#e8936a;">Blocked</span></div>
+      </div>
+      <!-- Row 5 -->
+      <div style="display:grid;grid-template-columns:1fr 70px 70px;gap:0;padding:9px 14px;align-items:center;">
+        <div style="font-size:12px;color:var(--text-muted);font-style:italic;">Undefined request</div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(232,147,106,0.12);color:#e8936a;">?</span></div>
+        <div style="text-align:center;"><span style="font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(232,147,106,0.12);color:#e8936a;">Blocked</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 Sizing -->
+<div class="slide" data-s="This came from two needs. We needed a way to measure design work and a way to estimate capacity — how many designers were needed, and for what kind of work. Some designers were buried under multiple large complex projects simultaneously while others were underutilized. This framework gave us a shared language for sizing work and making smarter staffing decisions. It made capacity conversations objective instead of political. And for design leaders, it made it possible to build number-driven business cases for headcount.">
+  <div class="eyebrow">Project Types &amp; Milestones</div>
+  <div class="headline">A shared language<br>for sizing work</div>
+  <div class="accent-line"></div>
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <!-- Column headers -->
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Size</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Type</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Sprints</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Duration</div>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--accent);">XS</div>
+      <div class="body" style="font-size:16px;">Small fix or tweak</div>
+      <div style="font-size:14px;color:var(--text-muted);">1 sprint</div>
+      <div style="font-size:14px;color:var(--text-muted);">&lt; 2 weeks</div>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--accent);">S</div>
+      <div class="body" style="font-size:16px;">Optimization</div>
+      <div style="font-size:14px;color:var(--text-muted);">2 sprints</div>
+      <div style="font-size:14px;color:var(--text-muted);">&lt; 4 weeks</div>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--accent);">M</div>
+      <div class="body" style="font-size:16px;">Feature enhancement</div>
+      <div style="font-size:14px;color:var(--text-muted);">3–4 sprints</div>
+      <div style="font-size:14px;color:var(--text-muted);">&lt; 8 weeks</div>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--accent);">L</div>
+      <div class="body" style="font-size:16px;">New feature or product</div>
+      <div style="font-size:14px;color:var(--text-muted);">4–5 sprints</div>
+      <div style="font-size:14px;color:var(--text-muted);">&lt; 10 weeks</div>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr 120px 140px;gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--accent);">XL</div>
+      <div class="body" style="font-size:16px;">Platform or transformational work</div>
+      <div style="font-size:14px;color:var(--text-muted);">6+ sprints</div>
+      <div style="font-size:14px;color:var(--text-muted);">12+ weeks</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;" class="body">Built from observing actual project durations — triangulated with design managers, PMs, and TPMs. First time leaders could make data-driven headcount cases.</div>
+</div>
+
+<!-- 07 Roadmap + Capacity -->
+<div class="slide" data-s="This is what the sizing framework looks like in practice. Once every project has a size, you can calculate total design weeks needed across a roadmap. Divide that by what a single designer can actually deliver in a quarter — we use 9.8 weeks after accounting for meetings, reviews, and overhead — and you have your headcount number. This turned a gut-feel conversation into a defensible business case.">
+  <div class="eyebrow">Roadmap + Capacity Planning</div>
+  <div class="headline">From sizing to staffing</div>
+  <div class="accent-line"></div>
+  <div style="display:flex;gap:40px;align-items:flex-start;margin-top:8px;">
+
+    <!-- Roadmap table -->
+    <div style="flex:1;min-width:0;">
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:7px 0;border-bottom:1px solid var(--border);">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Project</div>
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-align:center;">Size</div>
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-align:right;">Weeks</div>
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-align:right;">Designers</div>
+      </div>
+      <!-- Row 1 -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:14px;color:var(--text);">Checkout redesign · PayNow</div>
+        <div style="text-align:center;"><span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(123,124,232,0.12);color:var(--accent);">L</span></div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">9</div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">2</div>
+      </div>
+      <!-- Row 2 -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:14px;color:var(--text);">BNPL entry point optimization</div>
+        <div style="text-align:center;"><span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(123,124,232,0.12);color:var(--accent);">M</span></div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">6</div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">1</div>
+      </div>
+      <!-- Row 3 -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:14px;color:var(--text);">Guest checkout flow</div>
+        <div style="text-align:center;"><span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(123,124,232,0.12);color:var(--accent);">M</span></div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">6</div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">1</div>
+      </div>
+      <!-- Row 4 -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:14px;color:var(--text);">Coupon code support · PayNow</div>
+        <div style="text-align:center;"><span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(123,124,232,0.12);color:var(--accent);">S</span></div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">3</div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">1</div>
+      </div>
+      <!-- Row 5 -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div style="font-size:14px;color:var(--text);">Error state micro-copy refresh</div>
+        <div style="text-align:center;"><span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(123,124,232,0.12);color:var(--accent);">XS</span></div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">1.5</div>
+        <div style="font-size:14px;color:var(--text-muted);text-align:right;">1</div>
+      </div>
+      <!-- Totals row -->
+      <div style="display:grid;grid-template-columns:1fr 50px 80px 80px;gap:0;padding:11px 0;align-items:center;">
+        <div style="font-size:13px;color:var(--text-muted);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Total</div>
+        <div></div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--accent);text-align:right;">25.5</div>
+        <div></div>
+      </div>
+    </div>
+
+    <!-- Capacity math callout -->
+    <div style="width:220px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;">
+      <div class="card" style="border-top:2px solid var(--accent);">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">The math</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <div style="font-size:13px;color:var(--text-muted);">Total weeks needed</div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text);">25.5</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <div style="font-size:13px;color:var(--text-muted);">Weeks per designer</div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text);">9.8</div>
+          </div>
+          <div style="height:1px;background:var(--border);margin:4px 0;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <div style="font-size:13px;color:var(--text-muted);">25.5 ÷ 9.8</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--teal);">≈ 2.6</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-top:2px solid var(--teal);">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Recommendation</div>
+        <div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--teal);line-height:1;">3</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">designers for this roadmap</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:8px;font-style:italic;">0.4 weeks buffer for reviews and ad hoc</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 08 Flywheel -->
+<div class="slide" data-s="This is the operating rhythm that keeps the system alive. But I want to be clear about what these meetings are actually for — they're not status updates. They're decision-making engines. Clarity on priorities enables decisions. Decisions enable velocity. Velocity creates more clarity. That loop is the flywheel. Intentional meetings, shared priorities, and a system of record mean designers spend their time designing — not negotiating about what to work on.">
+  <div class="eyebrow">Operating Rhythms</div>
+  <div class="headline">Intentional meetings<br>build velocity</div>
+  <div style="display:flex;align-items:center;gap:52px;margin-top:20px;">
+
+    <!-- Flywheel SVG: 4-stage loop showing clarity > decisions > velocity > clarity -->
+    <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+      <defs>
+        <marker id="fw-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- Outer ring arc showing rotation direction -->
+      <path d="M 150 18 A 132 132 0 1 1 18 150" fill="none" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.25" marker-end="url(#fw-arr)"/>
+
+      <!-- Center: VELOCITY label -->
+      <circle cx="150" cy="150" r="44" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.15"/>
+      <text x="150" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.12em" opacity="0.8">TEAM</text>
+      <text x="150" y="158" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.12em" opacity="0.8">VELOCITY</text>
+
+      <!-- Curved arcs between nodes (the loop arrows) -->
+      <!-- Top to Right -->
+      <path d="M 178 48 Q 240 80 240 138" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
+      <!-- Right to Bottom -->
+      <path d="M 240 162 Q 240 220 178 252" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
+      <!-- Bottom to Left -->
+      <path d="M 122 252 Q 60 220 60 162" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
+      <!-- Left to Top -->
+      <path d="M 60 138 Q 60 80 122 48" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
+
+      <!-- Node 1: Clarity — top -->
+      <circle cx="150" cy="36" r="30" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="150" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">OUTCOME</text>
+      <text x="150" y="45" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Clarity</text>
+
+      <!-- Node 2: Priorities — right -->
+      <circle cx="252" cy="150" r="30" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+      <text x="252" y="145" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">ENABLES</text>
+      <text x="252" y="159" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Decisions</text>
+
+      <!-- Node 3: Velocity — bottom -->
+      <circle cx="150" cy="264" r="30" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+      <text x="150" y="259" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">DRIVES</text>
+      <text x="150" y="273" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Execution</text>
+
+      <!-- Node 4: Reflection — left -->
+      <circle cx="48" cy="150" r="30" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="48" y="145" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">BUILDS</text>
+      <text x="48" y="159" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Visibility</text>
+    </svg>
+
+    <div style="display:flex;flex-direction:column;gap:16px;flex:1;">
+      <div style="padding:14px 16px;border-left:2px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0;">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;">Quarterly</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:3px;font-weight:500;">Planning</div>
+        <div class="body" style="font-size:14px;">Set priorities, align on OKRs, assign capacity</div>
+      </div>
+      <div style="padding:14px 16px;border-left:2px solid var(--teal);background:var(--surface);border-radius:0 6px 6px 0;">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;">Bi-weekly</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:3px;font-weight:500;">Grooming + Sprint Planning</div>
+        <div class="body" style="font-size:14px;">Make tradeoffs visible, decide what ships next</div>
+      </div>
+      <div style="padding:14px 16px;border-left:2px solid var(--teal);background:var(--surface);border-radius:0 6px 6px 0;">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;">Weekly</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:3px;font-weight:500;">Scrum</div>
+        <div class="body" style="font-size:14px;">Surface blockers early, keep work moving</div>
+      </div>
+      <div style="font-size:13px;color:var(--text-muted);font-style:italic;padding-top:4px;">Meetings are not status updates. They are the mechanism for intentional decision making.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 Chapter 2 -->
+<div class="slide" data-s="The second body of work is the AI pilot program I run today. This was only possible because the Ways of Working foundation was already in place. We had the structure to run something intentional — not just deploy tools.">
+  <div class="eyebrow">Chapter 02</div>
+  <div class="display">AI<br><em>Pilots</em></div>
+  <div class="body-lg" style="max-width:480px;">Accelerating innovation across the product development lifecycle — with rigor, not just enthusiasm.</div>
+  <div class="ghost-num">02</div>
+</div>
+
+<!-- 09 Program Overview -->
+<div class="slide" data-s="Checkout is PayPal's core product — it's how the company makes money, and it carries the most regulatory scrutiny in the business. It's also a saturated landscape with Stripe and others moving fast. Our CTO asked us to set up a pilot program to accelerate innovation specifically for the design team. I was the architect for the scope of work. I partnered with the Head of Design for Checkout and we assembled a small team of principal-level designers, content designers, and researchers. We started with structured discovery — surveys, interviews, and a brainstorm session to surface pain points across the entire design lifecycle. That was only possible because the Ways of Working system was already in place.">
+  <div class="eyebrow">Program Overview</div>
+  <div class="headline">The brief: accelerate<br>innovation for checkout</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Context</div>
+      <ul class="clean-list">
+        <li>PayPal Checkout — core revenue product</li>
+        <li>Highest regulatory scrutiny in the business</li>
+        <li>Saturated market · Stripe moving fast</li>
+        <li>CTO directive to accelerate design innovation</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">My Role</div>
+      <ul class="clean-list">
+        <li>Architect of program scope and structure</li>
+        <li>Assembled principal-level pilot team</li>
+        <li>Led discovery: surveys, interviews, synthesis</li>
+        <li>Built measurement plan and oversaw execution</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 10 Pain Points -->
+<div class="slide" data-s="What you're seeing here are the pain points that surfaced from our survey and follow-up interviews with the team. Many of these will feel familiar — they're not unique to PayPal. What was valuable about doing this research formally rather than just assuming we knew the problems was that it gave us a prioritized, defensible list. We weren't guessing. We were building solutions against things the team told us were actually hurting them.">
+  <div class="eyebrow">Discovery Findings</div>
+  <div class="headline">What the team told us<br>was hurting them</div>
+  <div class="accent-line"></div>
+  <div class="three-col" style="margin-top:6px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Discover + Define</div>
+      <ul class="clean-list">
+        <li>PRDs incomplete, not customer-back</li>
+        <li>Discovery compressed by delivery timelines</li>
+        <li>Decisions made in silos</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Design + Develop</div>
+      <ul class="clean-list">
+        <li>Prototyping high effort, comes late</li>
+        <li>Legal approvals time-consuming</li>
+        <li>Edge cases identified late in QA</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">The result</div>
+      <ul class="clean-list">
+        <li>Corner cutting on critical steps</li>
+        <li>Measurement not customer-centric</li>
+        <li>Design quality constrained by process</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 11 PRD Case Study -->
+<div class="slide" data-s="This was our lowest hanging fruit — nearly every designer flagged PRD clarity as a pain point in the survey. What designers needed was a fast way to assess: has the customer problem actually been defined here, or are we starting from scratch? A content designer on the team built the agent using a design brief template we already knew worked. My role was overseeing the pilot — assessing the quality of the output and developing the adoption strategy once we felt confident in the tool. It's live today.">
+  <div class="eyebrow">Case Study 01 · Discover</div>
+  <div class="headline">PRD to Design Brief</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Problem</div>
+      <div class="body" style="margin-bottom:20px;">PRDs are technical documents not written customer-back. Designers couldn't tell if the problem was defined or if they were starting from scratch.</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Solution</div>
+      <ul class="clean-list">
+        <li>Agent turns PRD into clear design brief</li>
+        <li>Calls out gaps and missing customer context</li>
+        <li>Suggests questions and testing ideas</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:2px solid var(--teal);">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">Status: Live</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:8px;font-weight:500;">PRD Design Synthesizer</div>
+      <div class="body" style="font-size:16px;">Generates actionable clarity from Product Requirement Documents — what matters, what's missing, what to ask.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+        <div style="font-size:14px;color:var(--text-muted);">Next: Slack integration · auto-reminders to partners</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 12 Legal Case Study -->
+<div class="slide" data-s="Fintech is highly regulated — every piece of copy, every claim, every button label is scrutinized. When that content needs to launch across multiple countries, the review time multiplies. I worked with a content designer and our content ops team to map the full routing logic and understand where the breakdowns were happening. The root cause was simple: forms filled out incorrectly at the start of the workflow. The agent we built identifies the correct template, understands the routing rules, and fills it out completely. It doesn't have tired eyes. It doesn't miss checkboxes. Error rate dropped to zero. And the time to complete a submission went from two hours down to 15 minutes.">
+  <div class="eyebrow">Case Study 02 · Deliver</div>
+  <div class="headline">Streamlining Legal</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Root Cause</div>
+      <div class="body" style="margin-bottom:20px;">Wrong templates triggered wrong lawyers. Content designers copied old forms and missed fields. The process stalled before review even started.</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Solution</div>
+      <ul class="clean-list">
+        <li>MCP agent identifies correct template per review type</li>
+        <li>Fills forms completely — no tired eyes, no missed checkboxes</li>
+        <li>Error rate: zero</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text);">Form completion time</div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--teal);">75%↓</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">120 min → 30 min</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text);">Ticket submission time</div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--teal);">84%↓</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="bar-bg"><div class="bar-fill" style="width:84%"></div></div></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">30 min → 5 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13 Measurement -->
+<div class="slide" data-s="Measurement is how we understand progress — but it's not the whole story. For the pilots that are live, we're seeing meaningful time savings across the board. But not every pilot should be measured in time savings. The Replit prototyping work has a longer runway — efficiency comes after fluency. And the agentic ideation tool isn't about saving time at all, it's about injecting quality and creative possibility earlier in the process. The balance matters. Some investments reduce friction today. Others are bets on what design practice looks like in 18 months. A good AI program needs both.">
+  <div class="eyebrow">Measurement</div>
+  <div class="headline">Time savings across live pilots</div>
+  <div class="accent-line"></div>
+  <table class="mt">
+    <thead>
+      <tr>
+        <th>Workflow</th>
+        <th>Before</th>
+        <th>After</th>
+        <th style="text-align:right;">Reduction</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Consumer Duty compliance review</td>
+        <td style="font-size:13px;">120 min</td>
+        <td style="font-size:13px;">30 min</td>
+        <td class="num">75%</td>
+      </tr>
+      <tr>
+        <td>Legal ticket submission</td>
+        <td style="font-size:13px;">30 min</td>
+        <td style="font-size:13px;">5 min</td>
+        <td class="num">84%</td>
+      </tr>
+      <tr>
+        <td>Exec design review notes</td>
+        <td style="font-size:13px;">60 min</td>
+        <td style="font-size:13px;">20 min</td>
+        <td class="num">66%</td>
+      </tr>
+      <tr>
+        <td>Workshop synthesis</td>
+        <td style="font-size:13px;">120 min</td>
+        <td style="font-size:13px;">30 min</td>
+        <td class="num">75%</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:18px;font-size:15px;color:var(--text-muted);font-style:italic;">Not all pilots are measured in time. Some inject quality. Others are bets on what design practice looks like in 18 months. A good AI program needs both.</div>
+</div>
+
+<!-- 14 Chapter 3 -->
+<div class="slide" data-s="The last thing I want to show you is what I build on my own time. Not because anyone asked me to — because I saw problems worth solving.">
+  <div class="eyebrow">Chapter 03</div>
+  <div class="display">What I Build<br><em>Personally</em></div>
+  <div class="body-lg" style="max-width:480px;">The same instinct I bring to my day job. Build incrementally. Ground everything in the people using it.</div>
+  <div class="ghost-num">03</div>
+</div>
+
+<!-- 15 Capacity Planner -->
+<div class="slide" data-s="I also built a capacity planning tool — a working application that helps design leads figure out how many designers they need for a given roadmap. You can map available work weeks against project scope, compare staffing scenarios, and customize the data model per team. It's live and has been used by teams at PayPal.">
+  <div class="eyebrow">Personal Tools · 01</div>
+  <div class="headline">Capacity Planner</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">What it does</div>
+      <ul class="clean-list">
+        <li>Calculate available work weeks per designer</li>
+        <li>Map weeks needed against a product roadmap</li>
+        <li>Compare staffing scenarios side by side</li>
+        <li>Customize the data model per team</li>
+      </ul>
+      <div style="margin-top:22px;font-size:12px;color:var(--accent);">capacity-planner.netlify.app</div>
+    </div>
+    <div class="card">
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Why I built it</div>
+      <div class="body" style="font-size:17px;">The sizing framework I built at PayPal needed a tool to make it real. Spreadsheets weren't cutting it. So I built one that actually works the way design leads think about staffing problems.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 16 Rose + Stem -->
+<div class="slide" data-s="I started with a simple interface and a knowledge base for Rose, built according to a set of principles. What's evolved since then is a full system — a continuous learning pipeline, a monitoring layer, all in service of one person and what they actually need in that moment. This is how I build systems for teams. Incrementally, grounded in the people using them.">
+  <div class="eyebrow">Personal Tools</div>
+  <div class="headline">A system, not just a tool</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div class="card" style="border-top:2px solid var(--accent);">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Rose · Live</div>
+      <div style="font-size:15px;color:var(--text);margin-bottom:10px;font-weight:500;">Feedback decoder</div>
+      <div class="body" style="font-size:16px;margin-bottom:16px;">Takes workplace feedback and helps users understand what was actually said, checks it for bias, and reframes it into something actionable.</div>
+      <div style="font-size:12px;color:var(--text-muted);">Built on Claude API · Deployed on Vercel</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--accent);">rose-website-tan.vercel.app</div>
+    </div>
+    <div class="card" style="border-top:2px solid var(--teal);">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">Stem · Live</div>
+      <div style="font-size:15px;color:var(--text);margin-bottom:10px;font-weight:500;">Rose's research pipeline</div>
+      <div class="body" style="font-size:16px;margin-bottom:16px;">Monitors curated sources, scores articles against a rubric, and surfaces knowledge for human review before anything enters Rose's brain.</div>
+      <div style="font-size:12px;color:var(--text-muted);">Human-in-the-loop · No automated ingestion</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--teal);">Every addition is a deliberate editorial decision</div>
+    </div>
+  </div>
+</div>
+
+<!-- 17 System Diagram -->
+<div class="slide" data-s="Stem feeds approved knowledge into Rose's learning system. That knowledge informs how Rose responds. The user gets a clear, grounded, actionable response. Rose doesn't learn automatically. Every addition goes through a human review step. That's intentional. Quality is not something you automate away.">
+  <div class="eyebrow">System Architecture</div>
+  <div class="headline">How it fits together</div>
+  <div style="margin-top:20px;display:flex;align-items:flex-start;gap:16px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--teal);border-radius:8px;padding:18px;width:180px;flex-shrink:0;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">Stem</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:14px;color:var(--text-muted);padding:7px;background:var(--bg);border-radius:4px;">Monitor sources</div>
+        <div style="font-size:14px;color:var(--text-muted);padding:7px;background:var(--bg);border-radius:4px;">Score articles</div>
+        <div style="font-size:14px;color:var(--text-muted);padding:7px;background:var(--bg);border-radius:4px;">Human review</div>
+        <div style="font-size:14px;color:var(--text-muted);padding:7px;background:var(--bg);border-radius:4px;">Update Rose</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:52px;gap:3px;flex-shrink:0;width:80px;">
+      <div style="font-size:10px;color:var(--text-muted);letter-spacing:0.06em;text-align:center;">new knowledge</div>
+      <div style="color:var(--accent);font-size:18px;">→</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:18px;flex:1;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Rose</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:14px;color:var(--text-muted);padding:9px;background:var(--bg);border-radius:4px;"><span style="color:var(--text);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:3px;">Learning system</span>Stem feeds approved updates here</div>
+        <div style="font-size:14px;color:var(--text-muted);padding:9px;background:var(--bg);border-radius:4px;"><span style="color:var(--text);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:3px;">Knowledge base</span>Bias frameworks · feedback science · psychological safety</div>
+        <div style="font-size:14px;color:var(--text-muted);padding:9px;background:var(--bg);border-radius:4px;"><span style="color:var(--text);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:3px;">Responses</span>Interpret · check for bias · reframe · deliver</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:110px;flex-shrink:0;width:40px;">
+      <div style="color:var(--accent);font-size:18px;">→</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-top:2px solid #e8936a;border-radius:8px;padding:18px;width:150px;flex-shrink:0;">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#e8936a;margin-bottom:10px;">User</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:14px;color:var(--text-muted);padding:8px;background:var(--bg);border-radius:4px;">What this means</div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;"></div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;width:65%;"></div>
+        <div style="font-size:14px;color:var(--text-muted);padding:8px;background:var(--bg);border-radius:4px;margin-top:3px;">Fairness check</div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;"></div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;width:75%;"></div>
+        <div style="font-size:14px;color:var(--text-muted);padding:8px;background:var(--bg);border-radius:4px;margin-top:3px;">The reframe</div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;"></div>
+        <div style="height:2px;background:var(--border);border-radius:1px;margin:1px 7px;width:55%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 18 Close -->
+<div class="slide" data-s="This is how I build systems for teams. Incrementally, grounded in the people using them. I don't just deploy things — I build the systems around them that keep them honest, improving, and trustworthy. I'd love to bring that to Toast.">
+  <div class="eyebrow">In closing</div>
+  <div class="display" style="max-width:680px;">This is how I build<br>systems <em>for teams.</em></div>
+  <div class="accent-line"></div>
+  <div class="body-lg" style="max-width:560px;">Incrementally. Grounded in the people using them. I don't just deploy things — I build the systems around them that keep them honest, improving, and trustworthy.</div>
+  <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;">
+    <span class="pill">kim.k.inouye@gmail.com</span>
+    <span class="pill">linkedin.com/in/product-design-operations</span>
+    <span class="pill">kim-inouye.netlify.app</span>
+  </div>
+</div>
+
+
+<!-- 19 Appendix: Vibe Prototyping -->
+<div class="slide" data-s="This pilot explored using Replit to build working prototypes directly from design intent — putting something on a device in a review instead of a static mockup. The challenge we ran into was keeping the prototype in sync with our rapidly evolving design system. Changes to the system were outpacing what Replit could track. It's a solvable problem but it taught us that vibe prototyping works best when the design system is stable. Still in progress.">
+  <div class="eyebrow">Appendix · Pilot in Progress</div>
+  <div class="headline">Vibe Prototyping</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Problem</div>
+      <div class="body" style="margin-bottom:20px;">Prototyping is high effort, comes late in the design process, and is rarely experienced on actual devices in reviews.</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Approach</div>
+      <ul class="clean-list">
+        <li>Used Replit to generate working prototypes from design intent</li>
+        <li>Reduced design review cycles from 3 rounds to 1</li>
+        <li>Teams could iterate in the meeting itself</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:2px solid var(--text-muted);">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Status: In Progress</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:10px;font-weight:500;">Key challenge</div>
+      <div class="body" style="font-size:15px;">Design system changes faster than the prototype environment can track. Vibe prototyping works best when the design system is stable — or when the component set is scoped to the pilot.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);">Tools: Replit · Figma Make</div>
+    </div>
+  </div>
+</div>
+
+<!-- 20 Appendix: Agentic Ideation -->
+<div class="slide" data-s="This pilot explored using AI agents trained on PayPal's customer personas to kickstart and refine design ideas. Instead of starting from a blank FigJam board, designers could give the agent a problem statement and get a set of ideas organized by persona perspective — Value-Conscious Expert, Convenience Expert, and so on. It turns briefs into ideas in minutes and keeps the team customer-focused from the start.">
+  <div class="eyebrow">Appendix · Pilot in Progress</div>
+  <div class="headline">Agentic Ideation</div>
+  <div class="accent-line"></div>
+  <div class="two-col">
+    <div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Problem</div>
+      <div class="body" style="margin-bottom:20px;">Design teams need to move faster to explore and refine ideas without losing momentum or customer focus. Blank canvas workshops are slow and synthesis is hard.</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Approach</div>
+      <ul class="clean-list">
+        <li>AI agents trained on PayPal customer personas</li>
+        <li>Designer inputs a problem statement</li>
+        <li>Agent generates ideas organized by persona perspective</li>
+        <li>Teams get a customer-grounded starting point in minutes</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:2px solid var(--text-muted);">
+      <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Status: In Progress</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:10px;font-weight:500;">Why it matters</div>
+      <div class="body" style="font-size:15px;">This isn't about saving time — it's about injecting quality and customer focus earlier in the process. A designer with a persona-grounded idea set makes better decisions faster.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);">Tools: FigJam AI · PayPal persona library</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="nav-hint">
+  <div class="nk">←</div>
+  <div class="nk">→</div>
+  <span style="margin-left:4px;">navigate</span>
+  <span style="margin-left:10px;color:var(--border);">·</span>
+  <span style="margin-left:10px;">S — speaker notes</span>
+</div>
+
+<div class="script-panel" id="sp">
+  <div class="slabel">Speaker Notes</div>
+  <div class="stext" id="st"></div>
+</div>
+
+<script>
+function drawGrid(){
+  const sv=document.getElementById('gsv');
+  const W=window.innerWidth,H=window.innerHeight;
+  sv.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  sv.innerHTML='';
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  const c1=dark?'rgba(255,255,255,0.032)':'rgba(0,0,0,0.038)';
+  const c2=dark?'rgba(255,255,255,0.062)':'rgba(0,0,0,0.075)';
+  const cd=dark?'rgba(255,255,255,0.016)':'rgba(0,0,0,0.018)';
+  const step=48;
+  const mk=(x1,y1,x2,y2,s,w)=>{const l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke',s);l.setAttribute('stroke-width',w);sv.appendChild(l);};
+  for(let x=0;x<=W;x+=step) mk(x,0,x,H,x%(step*4)===0?c2:c1,'1');
+  for(let y=0;y<=H;y+=step) mk(0,y,W,y,y%(step*4)===0?c2:c1,'1');
+  // Sol LeWitt diagonals
+  const ds=step*7;
+  for(let i=-H;i<=W+H;i+=ds) mk(i,0,i+H,H,cd,'0.8');
+  // Counter-diagonals
+  const ds2=step*11;
+  for(let i=0;i<=W+H;i+=ds2) mk(i,0,i-H,H,cd,'0.6');
+}
+drawGrid();
+window.addEventListener('resize',drawGrid);
+
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+const tot=slides.length;
+function go(n){
+  slides[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(n,tot-1));
+  slides[cur].classList.add('active');
+  document.getElementById('ctr').textContent=String(cur+1).padStart(2,'0')+' / '+String(tot).padStart(2,'0');
+  document.getElementById('prog').style.width=((cur+1)/tot*100)+'%';
+  document.getElementById('st').textContent=slides[cur].dataset.s||'';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(cur-1);
+  if(e.key==='s'||e.key==='S'){const p=document.getElementById('sp');p.classList.toggle('open');}
+});
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('bd').classList.toggle('on',t==='dark');
+  document.getElementById('bl').classList.toggle('on',t==='light');
+  setTimeout(drawGrid,50);
+}
+go(0);
+</script>
+</body>
+</html>
