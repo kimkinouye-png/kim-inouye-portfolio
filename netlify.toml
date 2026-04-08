@@ -29,6 +29,11 @@
   status = 200
 
 [[redirects]]
+  from = "/aperi"
+  to = "/aperi.html"
+  status = 200
+
+[[redirects]]
   # Redirect www to non-www (optional, customize as needed)
   from = "/*"
   to = "/index.html"

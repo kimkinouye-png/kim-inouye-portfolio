@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEM — Case Study | Kim Inouye</title>
+<title>Aperi — Case Study | Kim Inouye</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -233,44 +233,46 @@ footer a:hover {
 <div class="wrap">
 
   <header class="case-header">
-    <p class="kicker">Case study · STEM</p>
-    <h1 class="case-title">Keeping the Human in the Loop</h1>
+    <p class="kicker">Case study &middot; Aperi</p>
+    <h1 class="case-title">Measuring What Rose Actually Says</h1>
     <div class="hero-links">
       <a href="index.html">Back to site</a>
-      <a href="https://rose-website-tan.vercel.app/index.html" target="_blank" rel="noopener noreferrer">View live app ↗</a>
+      <a href="https://aperi.vercel.app" target="_blank" rel="noopener noreferrer">View live app &nearr;</a>
     </div>
   </header>
 
   <article class="case-article">
-    <p>Rose started as a feedback decoder. Paste in the feedback you got from your manager, and she tells you what it actually means, whether it's fair, whether it reflects bias, and what to do with it. That's still what she does. But behind that simple interface is a knowledge system I've been building deliberately, and that's what I want to write about here.</p>
-    <p>Rose runs on Claude. Her intelligence comes from a system prompt, a structured document that tells her who she is, what she knows, and how to behave. Think of it as her brain. It has layers: her persona and values, her knowledge base, and her interaction rules. When someone pastes feedback into Rose, she's drawing on all of it at once.</p>
+    <p>Rose decodes workplace feedback. She tells people what their manager actually meant, whether the feedback is fair, whether it reflects bias, and what to do next. That&rsquo;s useful. But how do I know she&rsquo;s doing it well? How do I know version 1.9 is better than 1.7? I needed a way to score her responses consistently, and I needed it before I had enough data for automated evaluation. So I built Aperi.</p>
 
-    <p>Here&rsquo;s what that looks like in practice—Rose&rsquo;s structured response (&ldquo;Your feedback decoded&rdquo;) with meaning, fairness check, reframe, and what to do next:</p>
-    <figure>
-      <img src="images/rose-structured-response.png" width="1200" height="675" alt="Rose interface showing Your Feedback Decoded with sections for what the feedback means, fairness check, reframe, and next steps">
-    </figure>
+    <p>Aperi is a response quality scoring tool. It breaks down a Rose response across five dimensions, each scored zero to three. The name comes from the Latin &ldquo;to reveal&rdquo;&mdash;which is what scoring does. It surfaces what&rsquo;s working and what isn&rsquo;t in language that&rsquo;s specific enough to act on.</p>
 
     <figure>
-      <img src="images/rose-knowledge-layer.svg" width="1200" height="675" alt="Rose interface showing the feedback decoder and layered system prompt structure">
+      <img src="images/aperi-scoring-model.svg" width="1200" height="675" alt="Aperi five-dimension scoring model showing Action Endorsement, Other-Perspective Presence, Repair/Growth Signal, Next-Steps Drift, and Severity Calibration, each scored 0-3">
     </figure>
 
-    <p>The knowledge layer is where it gets interesting. Rose's brain is grounded in specific scholarship: feedback science from the Harvard Negotiation Project, gender bias research from UC Hastings, microaggression frameworks from Columbia, psychological safety data from Amy Edmondson at Harvard Business School. Not summaries. The actual frameworks, the specific patterns, the language. When Rose tells someone that "abrasive" is a Tightrope pattern and names what that means, she's drawing on Joan Williams' research directly.</p>
-    <p>The question I had to answer early: how does she keep learning?</p>
-    <p>I built a system called STEM, a research capture tool that sits alongside Rose. STEM has two jobs. First, it gives me a curated list of sources worth monitoring: HBR, MIT Sloan, Catalyst, the NeuroLeadership Institute, Center for Creative Leadership. Second, it gives me a structured template for capturing anything worth adding to Rose's knowledge base. Source, core insight, why it matters for Rose specifically, and a draft of the actual language I'd add to her system prompt.</p>
+    <p>The five dimensions came from watching Rose&rsquo;s failure modes. Action Endorsement catches when she validates someone&rsquo;s emotional reaction instead of decoding the feedback. Other-Perspective Presence checks whether she surfaces the manager&rsquo;s intent, not just the employee&rsquo;s experience. Repair/Growth Signal looks for whether she gives people something forward-facing to do. Next-Steps Drift catches when she over-explains&mdash;piling on transitions and filler instead of staying tight. Severity Calibration checks whether her tone matches the actual stakes.</p>
+
+    <p>Each dimension has a four-level scale with specific anchors. A score of zero on Action Endorsement means Rose endorsed the user&rsquo;s planned action without decoding. A three means she decoded the feedback without endorsing. These aren&rsquo;t abstract quality grades. They map directly to behaviors I can observe in the text.</p>
+
+    <p>The interesting design problem was the auto-scorer. I wanted a way to pre-fill scores based on what the heuristic could detect, then let me override everything. The auto-scorer is a client-side signal-word heuristic&mdash;no API calls, instant feedback as you paste. It scans the response text for patterns: endorsement language, perspective-taking signals, growth vocabulary, drift indicators, severity keywords.</p>
 
     <figure>
-      <img src="images/stem-research-capture.svg" width="1200" height="675" alt="STEM research capture tool showing sources and structured capture fields for Rose's knowledge base">
+      <img src="images/aperi-workflow.svg" width="1200" height="675" alt="Aperi scoring workflow showing four steps: set scenario context, auto-score fires, human override, and log run to Supabase">
     </figure>
 
-    <p>The key design decision was making it human-in-the-loop by default. Rose doesn't learn automatically. Every addition goes through me. I read it, score it, decide if it changes what she says or how she says it. If it does, I draft the addition, push it to GitHub, and redeploy. That's a version increment. Rose is currently at v1.9.</p>
-    <p>Today I built a rubric to make that scoring more consistent. Three dimensions: relevance to Rose's core job, additive value against what she already knows, and conversational applicability, whether it changes what she actually says in a real conversation. Each dimension scores zero to three. Anything below six gets skipped. Six to nine gets captured, and a separate confidence flag inside the capture template governs how quickly it moves into the prompt.</p>
-    <p>The rubric also forced a useful discovery. Rose's equity and bias knowledge is already strong: Kimberlé Crenshaw, Derald Wing Sue, Joan Williams, Kenji Yoshino. Adding more there has diminishing returns. The gaps are psychological safety and the role of AI in coaching. That's where the next additions are going.</p>
-    <p>One thing I've been deliberate about: Rose doesn't retain anything between conversations. She has no memory. What she "learns" is what I add to her system prompt. That's a constraint, but it's also a trust decision. Users share things with Rose that are sensitive: feedback about performance, identity, workplace dynamics. A system that accumulates and retains that data creates risk. The current architecture doesn't.</p>
-    <p>The roadmap eventually includes a view inside STEM of Rose's brain: topic coverage, source distribution, where she's strong, where she's thin. The monthly review process I do manually now becomes something I can see at a glance. That's not built yet. But the foundation for it is.</p>
+    <p>The auto-scorer is deliberately a starting point, not an answer. It gets close on some dimensions&mdash;Next-Steps Drift is mostly a word count and transition counter, so the heuristic is reliable there. Severity Calibration requires scenario context the heuristic doesn&rsquo;t have, so it defaults to the middle and flags for manual review. The point is to reduce the cognitive load of scoring from scratch every time, not to replace judgment.</p>
+
+    <p>I built the scoring core to be portable. The five dimensions and the auto-score heuristic know nothing about Rose specifically. The Rose-specific piece is the scenario context module&mdash;a panel where I set the persona, severity tier, emotional framing, and paste the response text. Today that module speaks Rose. Tomorrow it could speak a different product. The scoring engine stays the same.</p>
+
+    <p>Each scored run persists to Supabase with all five scores, notes per dimension, scenario context, and an overall assessment. The history view lets me browse runs chronologically and spot patterns: are certain personas consistently scoring lower? Does emotional framing affect how Rose handles severity? Those questions require data, and Aperi is how I collect it.</p>
+
+    <p>The overall score is the sum of all five dimensions, zero to fifteen. Eleven or above is a pass. Eight to ten is borderline. Below eight is a fail. Those thresholds came from calibrating against responses I&rsquo;d already evaluated by hand. A passing response decodes without endorsing, surfaces the other perspective, offers a growth path, stays tight, and matches the severity of the situation. That&rsquo;s what good looks like for Rose.</p>
+
+    <p>What&rsquo;s next: trend visualization across scored runs so I can see quality movement over prompt versions, and expanding the auto-scorer with more nuanced pattern detection as I collect more data on where the heuristic diverges from my manual scores.</p>
   </article>
 
   <footer>
-    <p>© 2026 Kim Inouye · Chicago, IL</p>
+    <p>&copy; 2026 Kim Inouye &middot; Chicago, IL</p>
     <p><a href="index.html">Back to home</a></p>
   </footer>
 
