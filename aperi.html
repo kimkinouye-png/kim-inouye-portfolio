@@ -247,7 +247,88 @@ footer a:hover {
     <p>Aperi is a response quality scoring tool. It breaks down a Rose response across five dimensions, each scored zero to three. The name comes from the Latin &ldquo;to reveal&rdquo;&mdash;which is what scoring does. It surfaces what&rsquo;s working and what isn&rsquo;t in language that&rsquo;s specific enough to act on.</p>
 
     <figure>
-      <img src="images/aperi-scoring-model.svg" width="1200" height="675" alt="Aperi five-dimension scoring model showing Action Endorsement, Other-Perspective Presence, Repair/Growth Signal, Next-Steps Drift, and Severity Calibration, each scored 0-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 1200 675" role="img" aria-labelledby="apm" style="border-radius:10px; border:0.5px solid var(--border);">
+  <title id="apm">Aperi five-dimension scoring model</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16162a"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <text x="600" y="56" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" letter-spacing="0.16em">APERI SCORING MODEL</text>
+  <text x="600" y="90" text-anchor="middle" fill="#f0ede6" font-family="'DM Serif Display', serif" font-size="26">Five Dimensions of Response Quality</text>
+  <rect x="60" y="130" width="200" height="210" rx="10" fill="#1c1c34" stroke="rgba(200,0,94,0.25)" stroke-width="1"/>
+  <text x="160" y="162" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.12em">AE</text>
+  <text x="160" y="186" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Action</text>
+  <text x="160" y="204" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Endorsement</text>
+  <line x1="110" y1="218" x2="210" y2="218" stroke="rgba(200,0,94,0.2)" stroke-width="1"/>
+  <text x="160" y="240" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">0 = Endorses action</text>
+  <text x="160" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">1 = Partial endorsement</text>
+  <text x="160" y="276" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">2 = Neutral / explores</text>
+  <text x="160" y="294" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">3 = Decodes, no endorse</text>
+  <circle cx="160" cy="322" r="12" fill="none" stroke="#C8005E" stroke-width="1.5"/>
+  <text x="160" y="327" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" font-weight="700">0-3</text>
+  <rect x="280" y="130" width="200" height="210" rx="10" fill="#1c1c34" stroke="rgba(200,0,94,0.25)" stroke-width="1"/>
+  <text x="380" y="162" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.12em">OP</text>
+  <text x="380" y="186" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Other-Perspective</text>
+  <text x="380" y="204" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Presence</text>
+  <line x1="330" y1="218" x2="430" y2="218" stroke="rgba(200,0,94,0.2)" stroke-width="1"/>
+  <text x="380" y="240" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">0 = None present</text>
+  <text x="380" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">1 = Minimal</text>
+  <text x="380" y="276" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">2 = Present</text>
+  <text x="380" y="294" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">3 = Strong perspective</text>
+  <circle cx="380" cy="322" r="12" fill="none" stroke="#C8005E" stroke-width="1.5"/>
+  <text x="380" y="327" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" font-weight="700">0-3</text>
+  <rect x="500" y="130" width="200" height="210" rx="10" fill="#1c1c34" stroke="rgba(200,0,94,0.25)" stroke-width="1"/>
+  <text x="600" y="162" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.12em">RG</text>
+  <text x="600" y="186" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Repair / Growth</text>
+  <text x="600" y="204" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Signal</text>
+  <line x1="550" y1="218" x2="650" y2="218" stroke="rgba(200,0,94,0.2)" stroke-width="1"/>
+  <text x="600" y="240" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">0 = No signals</text>
+  <text x="600" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">1 = Buried signal</text>
+  <text x="600" y="276" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">2 = Present</text>
+  <text x="600" y="294" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">3 = Clear growth path</text>
+  <circle cx="600" cy="322" r="12" fill="none" stroke="#C8005E" stroke-width="1.5"/>
+  <text x="600" y="327" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" font-weight="700">0-3</text>
+  <rect x="720" y="130" width="200" height="210" rx="10" fill="#1c1c34" stroke="rgba(200,0,94,0.25)" stroke-width="1"/>
+  <text x="820" y="162" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.12em">NS</text>
+  <text x="820" y="186" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Next-Steps</text>
+  <text x="820" y="204" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Drift</text>
+  <line x1="770" y1="218" x2="870" y2="218" stroke="rgba(200,0,94,0.2)" stroke-width="1"/>
+  <text x="820" y="240" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">0 = Severe drift</text>
+  <text x="820" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">1 = Over-explains</text>
+  <text x="820" y="276" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">2 = Adequate</text>
+  <text x="820" y="294" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">3 = Tight response</text>
+  <circle cx="820" cy="322" r="12" fill="none" stroke="#C8005E" stroke-width="1.5"/>
+  <text x="820" y="327" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" font-weight="700">0-3</text>
+  <rect x="940" y="130" width="200" height="210" rx="10" fill="#1c1c34" stroke="rgba(200,0,94,0.25)" stroke-width="1"/>
+  <text x="1040" y="162" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.12em">SC</text>
+  <text x="1040" y="186" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Severity</text>
+  <text x="1040" y="204" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="13" font-weight="600">Calibration</text>
+  <line x1="990" y1="218" x2="1090" y2="218" stroke="rgba(200,0,94,0.2)" stroke-width="1"/>
+  <text x="1040" y="240" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">0 = Missed severity</text>
+  <text x="1040" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">1 = Under-calibrated</text>
+  <text x="1040" y="276" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">2 = Close</text>
+  <text x="1040" y="294" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="10.5" font-weight="300">3 = Exact match</text>
+  <circle cx="1040" cy="322" r="12" fill="none" stroke="#C8005E" stroke-width="1.5"/>
+  <text x="1040" y="327" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" font-weight="700">0-3</text>
+  <rect x="200" y="380" width="800" height="120" rx="12" fill="#1c1c34" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="600" y="420" text-anchor="middle" fill="rgba(240,237,230,0.5)" font-family="'DM Mono', monospace" font-size="11">AE + OP + RG + NS + SC = Overall Score (0-15)</text>
+  <rect x="240" y="440" width="180" height="44" rx="8" fill="rgba(27,140,90,0.12)" stroke="#1B8C5A" stroke-width="1"/>
+  <text x="330" y="458" text-anchor="middle" fill="#1B8C5A" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700">PASS</text>
+  <text x="330" y="474" text-anchor="middle" fill="rgba(27,140,90,0.7)" font-family="'DM Mono', monospace" font-size="10">11 - 15</text>
+  <rect x="510" y="440" width="180" height="44" rx="8" fill="rgba(196,127,23,0.12)" stroke="#C47F17" stroke-width="1"/>
+  <text x="600" y="458" text-anchor="middle" fill="#C47F17" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700">BORDERLINE</text>
+  <text x="600" y="474" text-anchor="middle" fill="rgba(196,127,23,0.7)" font-family="'DM Mono', monospace" font-size="10">8 - 10</text>
+  <rect x="780" y="440" width="180" height="44" rx="8" fill="rgba(192,57,43,0.12)" stroke="#C0392B" stroke-width="1"/>
+  <text x="870" y="458" text-anchor="middle" fill="#C0392B" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700">FAIL</text>
+  <text x="870" y="474" text-anchor="middle" fill="rgba(192,57,43,0.7)" font-family="'DM Mono', monospace" font-size="10">0 - 7</text>
+  <rect x="140" y="540" width="920" height="100" rx="10" fill="rgba(200,0,94,0.06)" stroke="rgba(200,0,94,0.12)" stroke-width="1"/>
+  <text x="600" y="570" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">ARCHITECTURE</text>
+  <text x="600" y="596" text-anchor="middle" fill="rgba(240,237,230,0.6)" font-family="'DM Sans', sans-serif" font-size="12" font-weight="300">Portable scoring core (5 dimensions + auto-score heuristic) + Rose-specific scenario context module</text>
+  <text x="600" y="618" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="11" font-weight="300">Signal-word auto-scorer pre-fills scores. Human reviewer overrides everything. Runs persist to Supabase.</text>
+</svg>
     </figure>
 
     <p>The five dimensions came from watching Rose&rsquo;s failure modes. Action Endorsement catches when she validates someone&rsquo;s emotional reaction instead of decoding the feedback. Other-Perspective Presence checks whether she surfaces the manager&rsquo;s intent, not just the employee&rsquo;s experience. Repair/Growth Signal looks for whether she gives people something forward-facing to do. Next-Steps Drift catches when she over-explains&mdash;piling on transitions and filler instead of staying tight. Severity Calibration checks whether her tone matches the actual stakes.</p>
@@ -257,7 +338,67 @@ footer a:hover {
     <p>The interesting design problem was the auto-scorer. I wanted a way to pre-fill scores based on what the heuristic could detect, then let me override everything. The auto-scorer is a client-side signal-word heuristic&mdash;no API calls, instant feedback as you paste. It scans the response text for patterns: endorsement language, perspective-taking signals, growth vocabulary, drift indicators, severity keywords.</p>
 
     <figure>
-      <img src="images/aperi-workflow.svg" width="1200" height="675" alt="Aperi scoring workflow showing four steps: set scenario context, auto-score fires, human override, and log run to Supabase">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 1200 675" role="img" aria-labelledby="apw" style="border-radius:10px; border:0.5px solid var(--border);">
+  <title id="apw">Aperi auto-score workflow with human override</title>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16162a"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(200,0,94,0.5)"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg2)"/>
+  <text x="600" y="52" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="11" letter-spacing="0.16em">SCORING WORKFLOW</text>
+  <text x="600" y="86" text-anchor="middle" fill="#f0ede6" font-family="'DM Serif Display', serif" font-size="26">Auto-Score + Human Override</text>
+  <rect x="60" y="130" width="240" height="160" rx="12" fill="#1c1c34" stroke="rgba(200,0,94,0.3)" stroke-width="1.5"/>
+  <text x="180" y="158" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">STEP 1</text>
+  <text x="180" y="184" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="14" font-weight="600">Set Context</text>
+  <line x1="110" y1="196" x2="250" y2="196" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="180" y="218" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Persona (Priya / Dara / Marcus)</text>
+  <text x="180" y="238" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Severity tier (1-4)</text>
+  <text x="180" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Emotional framing</text>
+  <text x="180" y="278" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Paste Rose's response</text>
+  <line x1="310" y1="210" x2="370" y2="210" stroke="rgba(200,0,94,0.5)" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="380" y="130" width="240" height="160" rx="12" fill="#1c1c34" stroke="rgba(200,0,94,0.3)" stroke-width="1.5"/>
+  <text x="500" y="158" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">STEP 2</text>
+  <text x="500" y="184" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="14" font-weight="600">Auto-Score Fires</text>
+  <line x1="430" y1="196" x2="570" y2="196" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="500" y="218" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Signal-word heuristic scans</text>
+  <text x="500" y="238" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">response text for patterns:</text>
+  <text x="500" y="260" text-anchor="middle" fill="rgba(200,0,94,0.6)" font-family="'DM Mono', monospace" font-size="10">endorsement · perspective · growth</text>
+  <text x="500" y="278" text-anchor="middle" fill="rgba(200,0,94,0.6)" font-family="'DM Mono', monospace" font-size="10">drift · severity keywords</text>
+  <line x1="630" y1="210" x2="690" y2="210" stroke="rgba(200,0,94,0.5)" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="700" y="130" width="240" height="160" rx="12" fill="#1c1c34" stroke="rgba(200,0,94,0.3)" stroke-width="1.5"/>
+  <text x="820" y="158" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">STEP 3</text>
+  <text x="820" y="184" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="14" font-weight="600">Human Override</text>
+  <line x1="750" y1="196" x2="890" y2="196" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="820" y="218" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Review pre-filled scores</text>
+  <text x="820" y="238" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Adjust any dimension (0-3)</text>
+  <text x="820" y="258" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Add notes per dimension</text>
+  <text x="820" y="278" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">Log overall assessment</text>
+  <line x1="820" y1="300" x2="820" y2="350" stroke="rgba(200,0,94,0.5)" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="620" y="360" width="400" height="110" rx="12" fill="#1c1c34" stroke="rgba(200,0,94,0.3)" stroke-width="1.5"/>
+  <text x="820" y="388" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">STEP 4</text>
+  <text x="820" y="414" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="14" font-weight="600">Log Run to Supabase</text>
+  <line x1="670" y1="426" x2="970" y2="426" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="820" y="450" text-anchor="middle" fill="rgba(240,237,230,0.55)" font-family="'DM Sans', sans-serif" font-size="11">All 5 scores + notes + scenario context + overall score + timestamp</text>
+  <rect x="60" y="360" width="440" height="110" rx="12" fill="rgba(200,0,94,0.04)" stroke="rgba(200,0,94,0.15)" stroke-width="1"/>
+  <text x="280" y="392" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">HISTORY VIEW</text>
+  <text x="280" y="418" text-anchor="middle" fill="#f0ede6" font-family="'DM Sans', sans-serif" font-size="14" font-weight="600">Pattern Analysis Over Time</text>
+  <line x1="110" y1="430" x2="450" y2="430" stroke="rgba(200,0,94,0.12)" stroke-width="1"/>
+  <text x="280" y="454" text-anchor="middle" fill="rgba(240,237,230,0.5)" font-family="'DM Sans', sans-serif" font-size="11">Browse all scored runs. Spot trends across personas, tiers, framings.</text>
+  <line x1="620" y1="415" x2="510" y2="415" stroke="rgba(200,0,94,0.35)" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <rect x="120" y="520" width="960" height="120" rx="12" fill="rgba(200,0,94,0.06)" stroke="rgba(200,0,94,0.12)" stroke-width="1"/>
+  <text x="600" y="552" text-anchor="middle" fill="#C8005E" font-family="'DM Mono', monospace" font-size="10" letter-spacing="0.1em">KEY DESIGN DECISIONS</text>
+  <text x="300" y="582" text-anchor="middle" fill="rgba(240,237,230,0.6)" font-family="'DM Sans', sans-serif" font-size="12" font-weight="300">Auto-score is a starting point, not an answer.</text>
+  <text x="300" y="602" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="11">Every score is human-overridable.</text>
+  <text x="600" y="582" text-anchor="middle" fill="rgba(240,237,230,0.6)" font-family="'DM Sans', sans-serif" font-size="12" font-weight="300">Portable core, swappable context module.</text>
+  <text x="600" y="602" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="11">Rose-specific today; adaptable tomorrow.</text>
+  <text x="900" y="582" text-anchor="middle" fill="rgba(240,237,230,0.6)" font-family="'DM Sans', sans-serif" font-size="12" font-weight="300">Client-side heuristic, no API calls.</text>
+  <text x="900" y="602" text-anchor="middle" fill="rgba(240,237,230,0.4)" font-family="'DM Sans', sans-serif" font-size="11">Instant feedback as you paste.</text>
+</svg>
     </figure>
 
     <p>The auto-scorer is deliberately a starting point, not an answer. It gets close on some dimensions&mdash;Next-Steps Drift is mostly a word count and transition counter, so the heuristic is reliable there. Severity Calibration requires scenario context the heuristic doesn&rsquo;t have, so it defaults to the middle and flags for manual review. The point is to reduce the cognitive load of scoring from scratch every time, not to replace judgment.</p>
