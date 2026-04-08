@@ -19,6 +19,11 @@
   status = 200
 
 [[redirects]]
+  from = "/capacity-planner"
+  to = "/capacity-planner.html"
+  status = 200
+
+[[redirects]]
   # Redirect www to non-www (optional, customize as needed)
   from = "/*"
   to = "/index.html"
