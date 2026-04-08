@@ -372,6 +372,15 @@ section {
   color: rgba(240, 237, 230, 0.42);
 }
 .tool-diagram { margin-bottom: 1.25rem; }
+.tool-coming-soon {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hint);
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+}
 [data-theme="light"] .tool-card p:not(.tool-label) {
   color: rgba(26, 25, 23, 0.85);
 }
@@ -576,7 +585,7 @@ footer p {
             <line x1="40" y1="33" x2="60" y2="25" stroke="#8b7cf6" stroke-width="0.75" opacity="0.45"></line>
           </svg>
         </div>
-        <h3>AI Transformation</h3>
+        <h3>AI + Ways of Working</h3>
         <p>I led a program to accelerate innovation on PayPal's payments team. We created a set of agents and prototyping tools to solve for pain points in the Product Development Lifecycle.</p>
         <div class="excel-detail">
           <ul>
@@ -677,7 +686,7 @@ footer p {
           <li>Customize the data model per team</li>
         </ul>
         <div class="tool-card-actions">
-          <a href="https://capacity-planner.netlify.app/" class="tool-btn" target="_blank" rel="noopener noreferrer">capacity-planner.netlify.app ↗</a>
+          <a href="https://capacity-planner.netlify.app/" class="tool-btn" target="_blank" rel="noopener noreferrer">Open live app ↗</a>
           <a href="/capacity-planner" class="tool-btn tool-btn--secondary">View case study ↗</a>
         </div>
       </div>
@@ -712,9 +721,53 @@ footer p {
           <li>Reframes ambiguous feedback into action</li>
         </ul>
         <div class="tool-card-actions">
-          <a href="https://rose-website-tan.vercel.app/index.html" class="tool-btn" target="_blank" rel="noopener noreferrer">rose-website-tan.vercel.app ↗</a>
+          <a href="https://rose-website-tan.vercel.app/index.html" class="tool-btn" target="_blank" rel="noopener noreferrer">Open live app ↗</a>
           <a href="/rose" class="tool-btn tool-btn--secondary">View case study ↗</a>
         </div>
+      </div>
+
+      <div class="tool-card tool-card--link">
+        <a href="https://stem-dashboard-ashy.vercel.app/" class="tool-card-hit-area" target="_blank" rel="noopener noreferrer" aria-label="Open STEM research dashboard"></a>
+        <p class="tool-label">STEM</p>
+        <h3>Rose's Researcher</h3>
+        <p>This tool finds articles and research that would be of interest to Rose. Using a rubric I built, it scores each article and summarizes it to then be reviewed by a human for approval.</p>
+        <div class="tool-diagram">
+          <svg width="100%" viewBox="0 0 240 80" fill="none" aria-hidden="true">
+            <rect x="4" y="12" width="44" height="56" rx="4" fill="#0f172a" stroke="#2dd4bf" stroke-width="0.75" opacity="0.9"></rect>
+            <rect x="12" y="22" width="28" height="6" rx="1" fill="#2dd4bf" opacity="0.35"></rect>
+            <rect x="12" y="32" width="24" height="5" rx="1" fill="#2dd4bf" opacity="0.2"></rect>
+            <rect x="12" y="40" width="26" height="5" rx="1" fill="#2dd4bf" opacity="0.2"></rect>
+            <rect x="12" y="48" width="20" height="5" rx="1" fill="#2dd4bf" opacity="0.2"></rect>
+            <line x1="52" y1="40" x2="78" y2="40" stroke="#2dd4bf" stroke-width="0.75" opacity="0.5" stroke-linecap="round"></line>
+            <polygon points="74,36 82,40 74,44" fill="#2dd4bf" opacity="0.6"></polygon>
+            <rect x="86" y="14" width="76" height="52" rx="4" fill="#16231f" stroke="#2dd4bf" stroke-width="0.75"></rect>
+            <line x1="94" y1="26" x2="154" y2="26" stroke="#2dd4bf" stroke-width="0.6" opacity="0.4"></line>
+            <line x1="94" y1="34" x2="140" y2="34" stroke="#2dd4bf" stroke-width="0.5" opacity="0.25"></line>
+            <line x1="94" y1="42" x2="148" y2="42" stroke="#2dd4bf" stroke-width="0.5" opacity="0.25"></line>
+            <line x1="94" y1="50" x2="130" y2="50" stroke="#2dd4bf" stroke-width="0.5" opacity="0.25"></line>
+            <line x1="166" y1="40" x2="192" y2="40" stroke="#2dd4bf" stroke-width="0.75" opacity="0.5" stroke-linecap="round"></line>
+            <polygon points="188,36 196,40 188,44" fill="#2dd4bf" opacity="0.6"></polygon>
+            <rect x="200" y="18" width="36" height="44" rx="4" fill="#0f172a" stroke="#c4b5fd" stroke-width="0.65" opacity="0.85"></rect>
+            <text x="218" y="38" text-anchor="middle" font-family="DM Mono" font-size="7" fill="#c4b5fd" opacity="0.85">Rose</text>
+            <text x="218" y="48" text-anchor="middle" font-family="DM Mono" font-size="6" fill="#c4b5fd" opacity="0.45">prompt</text>
+          </svg>
+        </div>
+        <ul class="tool-features">
+          <li>Source radar: HBR, MIT Sloan, Catalyst, and more</li>
+          <li>Capture template: insight, relevance, draft prompt language</li>
+          <li>Every change reviewed before it ships to the live agent</li>
+        </ul>
+        <div class="tool-card-actions">
+          <a href="https://stem-dashboard-ashy.vercel.app/" class="tool-btn" target="_blank" rel="noopener noreferrer">Open live app ↗</a>
+          <a href="/stem" class="tool-btn tool-btn--secondary">View case study ↗</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <p class="tool-label">Aperi</p>
+        <h3>AI Quality Monitor</h3>
+        <p>A quality monitoring tool that checks whether Rose correctly identifies bias and microaggressions in the feedback scenarios you run through her.</p>
+        <p class="tool-coming-soon">Coming soon</p>
       </div>
 
     </div>

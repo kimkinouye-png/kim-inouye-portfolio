@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEM — Case Study | Kim Inouye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e0e;
+  --bg2: #161616;
+  --bg3: #1c1c1c;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --text: #f0ede6;
+  --muted: rgba(240,237,230,0.45);
+  --hint: rgba(240,237,230,0.25);
+  --accent: #8b7cf6;
+  --accent2: #c4b5fd;
+}
+[data-theme="light"] {
+  --bg: #f0ede6;
+  --bg2: #ffffff;
+  --bg3: #f5f3ef;
+  --border: rgba(0,0,0,0.12);
+  --border-hover: rgba(0,0,0,0.22);
+  --text: #1a1917;
+  --muted: rgba(26,25,23,0.55);
+  --hint: rgba(26,25,23,0.35);
+  --accent: #6d5ce6;
+  --accent2: #5b4bd4;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px;
+  z-index: 0;
+  pointer-events: none;
+}
+[data-theme="light"] body::after {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+}
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 3rem 4rem;
+}
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  background: rgba(14,14,14,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.3s;
+}
+[data-theme="light"] nav {
+  background: rgba(240,237,230,0.92);
+}
+.logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--accent2);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.nav-right { display: flex; align-items: center; gap: 0.4rem; }
+.theme-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: none;
+  border: 0.5px solid transparent;
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.theme-btn.active {
+  color: var(--text);
+  border-color: var(--border-hover);
+}
+.theme-btn:hover { color: var(--text); }
+.theme-sep {
+  color: var(--hint);
+  font-size: 0.8rem;
+  font-family: 'DM Mono', monospace;
+}
+.case-header {
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 0.5px solid var(--border);
+}
+.kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1.75rem;
+}
+.case-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin-bottom: 1.25rem;
+  max-width: 720px;
+}
+.hero-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hero-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent2);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--accent);
+  padding-bottom: 2px;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s;
+}
+.hero-links a:hover { opacity: 0.65; }
+.case-article {
+  max-width: 620px;
+}
+.case-article p {
+  font-size: 1rem;
+  color: rgba(240, 237, 230, 0.82);
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 1.35rem;
+}
+[data-theme="light"] .case-article p {
+  color: rgba(26, 25, 23, 0.85);
+}
+.case-article figure {
+  margin: 2.25rem 0;
+  max-width: 100%;
+}
+.case-article figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+footer {
+  border-top: 0.5px solid var(--border);
+  margin-top: 4rem;
+  padding: 3rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+footer p {
+  font-size: 0.82rem;
+  color: var(--hint);
+  font-family: 'DM Mono', monospace;
+}
+footer a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--hint);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--border);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+footer a:hover {
+  color: var(--accent2);
+  border-color: var(--accent);
+}
+@media (max-width: 580px) {
+  .wrap {
+    padding: 5rem 1.5rem 3rem;
+  }
+  nav {
+    padding: 1rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">K / I</a>
+  <div class="nav-right">
+    <button class="theme-btn active" id="btn-dark" type="button">Dark</button>
+    <span class="theme-sep">|</span>
+    <button class="theme-btn" id="btn-light" type="button">Light</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="case-header">
+    <p class="kicker">Case study · STEM</p>
+    <h1 class="case-title">Keeping the Human in the Loop</h1>
+    <div class="hero-links">
+      <a href="index.html">Back to site</a>
+      <a href="https://rose-website-tan.vercel.app/index.html" target="_blank" rel="noopener noreferrer">View live app ↗</a>
+    </div>
+  </header>
+
+  <article class="case-article">
+    <p>Rose started as a feedback decoder. Paste in the feedback you got from your manager, and she tells you what it actually means, whether it's fair, whether it reflects bias, and what to do with it. That's still what she does. But behind that simple interface is a knowledge system I've been building deliberately, and that's what I want to write about here.</p>
+    <p>Rose runs on Claude. Her intelligence comes from a system prompt, a structured document that tells her who she is, what she knows, and how to behave. Think of it as her brain. It has layers: her persona and values, her knowledge base, and her interaction rules. When someone pastes feedback into Rose, she's drawing on all of it at once.</p>
+
+    <figure>
+      <img src="images/rose-knowledge-layer.svg" width="1200" height="675" alt="Rose interface showing the feedback decoder and layered system prompt structure">
+    </figure>
+
+    <p>The knowledge layer is where it gets interesting. Rose's brain is grounded in specific scholarship: feedback science from the Harvard Negotiation Project, gender bias research from UC Hastings, microaggression frameworks from Columbia, psychological safety data from Amy Edmondson at Harvard Business School. Not summaries. The actual frameworks, the specific patterns, the language. When Rose tells someone that "abrasive" is a Tightrope pattern and names what that means, she's drawing on Joan Williams' research directly.</p>
+    <p>The question I had to answer early: how does she keep learning?</p>
+    <p>I built a system called STEM, a research capture tool that sits alongside Rose. STEM has two jobs. First, it gives me a curated list of sources worth monitoring: HBR, MIT Sloan, Catalyst, the NeuroLeadership Institute, Center for Creative Leadership. Second, it gives me a structured template for capturing anything worth adding to Rose's knowledge base. Source, core insight, why it matters for Rose specifically, and a draft of the actual language I'd add to her system prompt.</p>
+
+    <figure>
+      <img src="images/stem-research-capture.svg" width="1200" height="675" alt="STEM research capture tool showing sources and structured capture fields for Rose's knowledge base">
+    </figure>
+
+    <p>The key design decision was making it human-in-the-loop by default. Rose doesn't learn automatically. Every addition goes through me. I read it, score it, decide if it changes what she says or how she says it. If it does, I draft the addition, push it to GitHub, and redeploy. That's a version increment. Rose is currently at v1.9.</p>
+    <p>Today I built a rubric to make that scoring more consistent. Three dimensions: relevance to Rose's core job, additive value against what she already knows, and conversational applicability, whether it changes what she actually says in a real conversation. Each dimension scores zero to three. Anything below six gets skipped. Six to nine gets captured, and a separate confidence flag inside the capture template governs how quickly it moves into the prompt.</p>
+    <p>The rubric also forced a useful discovery. Rose's equity and bias knowledge is already strong: Kimberlé Crenshaw, Derald Wing Sue, Joan Williams, Kenji Yoshino. Adding more there has diminishing returns. The gaps are psychological safety and the role of AI in coaching. That's where the next additions are going.</p>
+    <p>One thing I've been deliberate about: Rose doesn't retain anything between conversations. She has no memory. What she "learns" is what I add to her system prompt. That's a constraint, but it's also a trust decision. Users share things with Rose that are sensitive: feedback about performance, identity, workplace dynamics. A system that accumulates and retains that data creates risk. The current architecture doesn't.</p>
+    <p>The roadmap eventually includes a view inside STEM of Rose's brain: topic coverage, source distribution, where she's strong, where she's thin. The monthly review process I do manually now becomes something I can see at a glance. That's not built yet. But the foundation for it is.</p>
+  </article>
+
+  <footer>
+    <p>© 2026 Kim Inouye · Chicago, IL</p>
+    <p><a href="index.html">Back to home</a></p>
+  </footer>
+
+</div>
+
+<script>
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("btn-dark").classList.toggle("active", t === "dark");
+  document.getElementById("btn-light").classList.toggle("active", t === "light");
+  try { localStorage.setItem("theme", t); } catch (e) {}
+}
+document.getElementById("btn-dark").addEventListener("click", function () { setTheme("dark"); });
+document.getElementById("btn-light").addEventListener("click", function () { setTheme("light"); });
+var saved = "dark";
+try { saved = localStorage.getItem("theme") || "dark"; } catch (e) {}
+setTheme(saved);
+</script>
+</body>
+</html>

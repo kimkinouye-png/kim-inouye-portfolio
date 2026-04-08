@@ -19,6 +19,7 @@
   --hint: rgba(240,237,230,0.25);
   --accent: #8b7cf6;
   --accent2: #c4b5fd;
+  --rose: #D4537E;
 }
 [data-theme="light"] {
   --bg: #f0ede6;
@@ -134,7 +135,7 @@ nav {
 }
 .case-title {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.65rem, 4vw, 2.65rem);
   letter-spacing: -0.02em;
   line-height: 1.12;
   margin-bottom: 1.25rem;
@@ -157,6 +158,15 @@ nav {
   transition: opacity 0.2s;
 }
 .hero-links a:hover { opacity: 0.65; }
+.hero-links a.link-muted {
+  color: var(--muted);
+  border-bottom-color: var(--border-hover);
+}
+.hero-links a.link-muted:hover {
+  color: var(--accent2);
+  border-bottom-color: var(--accent);
+  opacity: 1;
+}
 .case-article {
   max-width: 620px;
 }
@@ -170,16 +180,48 @@ nav {
 [data-theme="light"] .case-article p {
   color: rgba(26, 25, 23, 0.85);
 }
-.case-article figure {
-  margin: 2.25rem 0;
-  max-width: 100%;
+.case-article h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2.5rem;
+  margin-bottom: 0.85rem;
+  color: var(--text);
 }
-.case-article figure img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 10px;
-  border: 0.5px solid var(--border);
+.case-article h2:first-of-type {
+  margin-top: 0;
+}
+.case-article h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.08rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-top: 1.65rem;
+  margin-bottom: 0.55rem;
+  color: var(--text);
+}
+.case-article blockquote {
+  margin: 1.15rem 0 1.35rem;
+  padding: 0.15rem 0 0.15rem 1.15rem;
+  border-left: 2px solid var(--rose);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  font-weight: 300;
+  color: rgba(240, 237, 230, 0.78);
+  font-style: italic;
+}
+[data-theme="light"] .case-article blockquote {
+  color: rgba(26, 25, 23, 0.78);
+}
+.case-article a.inline {
+  color: var(--accent2);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--accent);
+  padding-bottom: 1px;
+}
+.case-article a.inline:hover {
+  opacity: 0.8;
 }
 footer {
   border-top: 0.5px solid var(--border);
@@ -233,35 +275,74 @@ footer a:hover {
 <div class="wrap">
 
   <header class="case-header">
-    <p class="kicker">Case study</p>
-    <h1 class="case-title">Keeping the Human in the Loop</h1>
+    <p class="kicker">Case study · Rose</p>
+    <h1 class="case-title">Building Rose: An AI Career Coach Built Entirely on the Employee&rsquo;s Side</h1>
     <div class="hero-links">
       <a href="index.html">Back to site</a>
       <a href="https://rose-website-tan.vercel.app/index.html" target="_blank" rel="noopener noreferrer">View live app ↗</a>
+      <a class="link-muted" href="stem.html">Research &amp; prompt stack ↗</a>
     </div>
   </header>
 
   <article class="case-article">
-    <p>Rose started as a feedback decoder. Paste in the feedback you got from your manager, and she tells you what it actually means, whether it's fair, whether it reflects bias, and what to do with it. That's still what she does. But behind that simple interface is a knowledge system I've been building deliberately, and that's what I want to write about here.</p>
-    <p>Rose runs on Claude. Her intelligence comes from a system prompt, a structured document that tells her who she is, what she knows, and how to behave. Think of it as her brain. It has layers: her persona and values, her knowledge base, and her interaction rules. When someone pastes feedback into Rose, she's drawing on all of it at once.</p>
 
-    <figure>
-      <img src="images/rose-knowledge-layer.svg" width="1200" height="675" alt="Rose interface showing the feedback decoder and layered system prompt structure">
-    </figure>
+    <h2>The Problem</h2>
+    <p>I&rsquo;ve spent most of my career in corporate environments where feedback is a ritual. Quarterly reviews. 360s. End-of-year summaries. And most of it is hard to use.</p>
+    <p>Not because people are bad at giving feedback. Some are, but that&rsquo;s not the whole story. The harder problem is that feedback almost never arrives clean. It arrives with the giver&rsquo;s assumptions baked in. Their relationship to power. Their blind spots about identity. Their inability to say what they actually mean.</p>
+    <p>And then the person who received it is left alone trying to figure out whether it&rsquo;s useful, whether it&rsquo;s fair, whether it reflects something real about them or something real about the person who said it.</p>
+    <p>Every feedback product I could find was built for the organization. For managers to write better reviews. For HR to track sentiment. For companies to reduce legal exposure. The employee sitting alone with a confusing performance review? Nobody built anything for that person.</p>
+    <p>So I built Rose.</p>
 
-    <p>The knowledge layer is where it gets interesting. Rose's brain is grounded in specific scholarship: feedback science from the Harvard Negotiation Project, gender bias research from UC Hastings, microaggression frameworks from Columbia, psychological safety data from Amy Edmondson at Harvard Business School. Not summaries. The actual frameworks, the specific patterns, the language. When Rose tells someone that "abrasive" is a Tightrope pattern and names what that means, she's drawing on Joan Williams' research directly.</p>
-    <p>The question I had to answer early: how does she keep learning?</p>
-    <p>I built a system called STEM, a research capture tool that sits alongside Rose. STEM has two jobs. First, it gives me a curated list of sources worth monitoring: HBR, MIT Sloan, Catalyst, the NeuroLeadership Institute, Center for Creative Leadership. Second, it gives me a structured template for capturing anything worth adding to Rose's knowledge base. Source, core insight, why it matters for Rose specifically, and a draft of the actual language I'd add to her system prompt.</p>
+    <h2>What Rose Does</h2>
+    <p>Rose is an AI career coach. You paste in feedback you received from a manager, peer, or executive. She helps you understand what it actually means.</p>
+    <p>Her response follows a three-part structure.</p>
+    <h3>First: what this likely means</h3>
+    <p>What was the giver probably trying to say underneath the words they chose?</p>
+    <h3>Second: a fairness check</h3>
+    <p>Does this feedback reflect bias or a microaggression pattern? Rose names it if it does. She draws on frameworks from Kimberlé Crenshaw, Derald Wing Sue, and Joan Williams to recognize when feedback is doing something other than what it claims.</p>
+    <h3>Third: the reframe</h3>
+    <p>The constructive version that strips away loaded language and gets to what the person receiving it can actually use.</p>
+    <p>The goal is not to validate the user. It&rsquo;s to give them clarity.</p>
 
-    <figure>
-      <img src="images/stem-research-capture.svg" width="1200" height="675" alt="STEM research capture tool showing sources and structured capture fields for Rose's knowledge base">
-    </figure>
+    <h2>The Design Decisions That Shaped Her</h2>
 
-    <p>The key design decision was making it human-in-the-loop by default. Rose doesn't learn automatically. Every addition goes through me. I read it, score it, decide if it changes what she says or how she says it. If it does, I draft the addition, push it to GitHub, and redeploy. That's a version increment. Rose is currently at v1.9.</p>
-    <p>Today I built a rubric to make that scoring more consistent. Three dimensions: relevance to Rose's core job, additive value against what she already knows, and conversational applicability, whether it changes what she actually says in a real conversation. Each dimension scores zero to three. Anything below six gets skipped. Six to nine gets captured, and a separate confidence flag inside the capture template governs how quickly it moves into the prompt.</p>
-    <p>The rubric also forced a useful discovery. Rose's equity and bias knowledge is already strong: Kimberlé Crenshaw, Derald Wing Sue, Joan Williams, Kenji Yoshino. Adding more there has diminishing returns. The gaps are psychological safety and the role of AI in coaching. That's where the next additions are going.</p>
-    <p>One thing I've been deliberate about: Rose doesn't retain anything between conversations. She has no memory. What she "learns" is what I add to her system prompt. That's a constraint, but it's also a trust decision. Users share things with Rose that are sensitive: feedback about performance, identity, workplace dynamics. A system that accumulates and retains that data creates risk. The current architecture doesn't.</p>
-    <p>The roadmap eventually includes a view inside STEM of Rose's brain: topic coverage, source distribution, where she's strong, where she's thin. The monthly review process I do manually now becomes something I can see at a glance. That's not built yet. But the foundation for it is.</p>
+    <h3>Voice before features</h3>
+    <p>Most AI product development starts with capability. I started with character.</p>
+    <p>Before writing a line of code, I spent weeks working through who Rose is and how she talks.</p>
+    <p>Rose has two core voice rules. The first is dry recognition: one beat of acknowledgment before she gets to work. &ldquo;They called you aggressive?&rdquo; lands better than &ldquo;That&rsquo;s a concerning pattern I want to help you unpack.&rdquo; The raised eyebrow, not the lecture. The second rule is bring clarity, not heat. The user is already feeling their feelings. Rose doesn&rsquo;t amplify them. She lowers the temperature and raises the signal.</p>
+    <p>Those two rules shaped everything downstream. They&rsquo;re why Rose doesn&rsquo;t open with &ldquo;I understand how you must be feeling.&rdquo; They&rsquo;re why she doesn&rsquo;t close with a five-point action plan. They&rsquo;re why she sounds like a person.</p>
+
+    <h3>The onboarding modal</h3>
+    <p>One of the earliest design problems was context. Rose is sharper when she knows something about the person using her: their role, their organization, whether there&rsquo;s identity context that shapes how feedback lands. But asking mid-conversation interrupts the flow.</p>
+    <p>The solution was an optional onboarding modal before the user types anything. Three fields: role, organization type, and an open text field for identity context. The copy matters as much as the structure.</p>
+    <blockquote>&ldquo;Before we start, a little context helps me give you a sharper read. All of this is optional and you can update it anytime.&rdquo;</blockquote>
+    <p>That framing removes pressure, explains the ask, and signals immediately that Rose pays attention to specifics.</p>
+    <p>The identity context field was the most deliberate choice. An open text field, not a dropdown. It names gender, race, sexuality, and disability as examples and frames them as precision tools. The user decides what&rsquo;s relevant. Rose uses it to be more accurate.</p>
+    <p>This was a values decision as much as a product decision. The people who most need Rose are often navigating feedback that was shaped by who they are rather than what they did. They should be able to tell her that directly, in their own words.</p>
+
+    <h3>Grounding in scholarship, not pattern matching</h3>
+    <p>Rose draws on a real body of research about how bias shows up in professional settings.</p>
+    <p>Joan Williams&rsquo; work on gender bias patterns gives Rose a vocabulary for the specific ways women are penalized for behavior that reads differently when it comes from someone else. Derald Wing Sue&rsquo;s taxonomy of microaggressions gives her a framework for naming subtle exclusion without requiring the user to have that language themselves. Kimberlé Crenshaw&rsquo;s work on intersectionality helps Rose recognize when feedback is responding to compounded identity dynamics that a single-axis lens would miss.</p>
+    <p>When Rose says &ldquo;that&rsquo;s a Tightrope pattern,&rdquo; she&rsquo;s applying a documented, peer-reviewed framework. That distinction matters. It separates analysis from opinion.</p>
+    <p>The knowledge base is a living document. New research goes through a structured review process before it enters Rose&rsquo;s system prompt. The architecture is modular: persona, knowledge, and interaction rules are separate layers. Any one of them can be updated without touching the others.</p>
+
+    <h3>Designing against sycophancy</h3>
+    <p>This was the risk I thought hardest about. AI systems have a strong pull toward agreement. Mirror the user&rsquo;s emotion. Validate the interpretation. Avoid saying anything unwelcome.</p>
+    <p>That pull is especially dangerous for Rose. Her users are often in charged situations dealing with feedback that feels unfair. The easy path is to agree with everything.</p>
+    <p>Rose is specifically designed to resist that. If the feedback is fair, she says so. She maintains what I think of as other-perspective presence: some acknowledgment that the feedback giver may have had a valid point, even when bias is also present. She doesn&rsquo;t over-explain next steps as a way of performing helpfulness.</p>
+    <p>I built a testing rubric across four dimensions: action endorsement rate, other-perspective presence, repair and growth signal, and next-steps drift. I run scenarios through Rose regularly to check she&rsquo;s holding the line.</p>
+
+    <h2>A Few Things I Learned</h2>
+    <p>Voice is a product decision. The rules governing how Rose talks aren&rsquo;t style choices. A tool that validates users when they don&rsquo;t need validation is a different product than one that gives them clarity. Every rule serves that distinction.</p>
+    <p>The equity angle is not a niche. Women, people of color, and LGBTQ+ employees are the majority of the workforce. A tool that understands their experience isn&rsquo;t serving a niche. It&rsquo;s serving a need that has been ignored.</p>
+    <p>Care is a design principle. One of Rose&rsquo;s foundational documents puts it directly: Rose is built from genuine care for the people who use her, not liability protection. Those aren&rsquo;t the same thing. A product designed to protect itself from users is different from one designed to protect users. That distinction shows up in every decision.</p>
+
+    <h2>Where Rose Is Now</h2>
+    <p>Rose is live at <a class="inline" href="https://rose-website-tan.vercel.app/index.html" target="_blank" rel="noopener noreferrer">rose-website-tan.vercel.app</a>. She&rsquo;s powered by the Claude API, deployed via Vercel, and currently in a trusted-colleague testing phase before broader user testing.</p>
+    <p>The feedback decoder is the beginning. The larger vision is a career intelligence platform where users own their data, track their growth, and carry their record with them regardless of where they work.</p>
+    <p>The decoder is the proof of concept. It&rsquo;s also the thing I actually needed and couldn&rsquo;t find anywhere.</p>
+    <p>That&rsquo;s why I built it.</p>
+
   </article>
 
   <footer>
