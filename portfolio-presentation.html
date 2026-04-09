@@ -423,12 +423,12 @@ table.mt td.num{color:var(--teal);font-weight:500;text-align:right;}
 </div>
 
 <!-- 08 Flywheel -->
-<div class="slide" data-s="This is the operating rhythm that keeps the system alive. But I want to be clear about what these meetings are actually for — they're not status updates. They're decision-making engines. Clarity on priorities enables decisions. Decisions enable velocity. Velocity creates more clarity. That loop is the flywheel. Intentional meetings, shared priorities, and a system of record mean designers spend their time designing — not negotiating about what to work on.">
+<div class="slide" data-s="I think of a team's operating rhythm as a flywheel for velocity and momentum. Every meeting is either a working session to get crisp on scope, identify new or conflicting priorities, or at-risk dependencies that would block the team from progressing on their backlog. Design reviews and demos are where the team gets aligned on quality and direction before work moves forward. Clarity on priorities enables decision making. Decisions enable velocity. Intentional meetings, shared priorities, and a system of record mean designers spend their time designing — not negotiating about what to work on.">
   <div class="eyebrow">Operating Rhythms</div>
   <div class="headline">Intentional meetings<br>build velocity</div>
   <div style="display:flex;align-items:center;gap:52px;margin-top:20px;">
 
-    <!-- Flywheel SVG: 4-stage loop showing clarity > decisions > velocity > clarity -->
+    <!-- Flywheel SVG: 4 meeting types as nodes in a loop -->
     <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
       <defs>
         <marker id="fw-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -440,39 +440,36 @@ table.mt td.num{color:var(--teal);font-weight:500;text-align:right;}
       <path d="M 150 18 A 132 132 0 1 1 18 150" fill="none" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.25" marker-end="url(#fw-arr)"/>
 
       <!-- Center: VELOCITY label -->
-      <circle cx="150" cy="150" r="44" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.15"/>
-      <text x="150" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.12em" opacity="0.8">TEAM</text>
-      <text x="150" y="158" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.12em" opacity="0.8">VELOCITY</text>
+      <circle cx="150" cy="150" r="40" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.15"/>
+      <text x="150" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.1em" opacity="0.7">TEAM</text>
+      <text x="150" y="158" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" fill="var(--accent)" letter-spacing="0.1em" opacity="0.7">VELOCITY</text>
 
-      <!-- Curved arcs between nodes (the loop arrows) -->
-      <!-- Top to Right -->
+      <!-- Curved arcs between nodes -->
       <path d="M 178 48 Q 240 80 240 138" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
-      <!-- Right to Bottom -->
       <path d="M 240 162 Q 240 220 178 252" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
-      <!-- Bottom to Left -->
       <path d="M 122 252 Q 60 220 60 162" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
-      <!-- Left to Top -->
       <path d="M 60 138 Q 60 80 122 48" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3" marker-end="url(#fw-arr)"/>
 
-      <!-- Node 1: Clarity — top -->
-      <circle cx="150" cy="36" r="30" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
-      <text x="150" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">OUTCOME</text>
-      <text x="150" y="45" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Clarity</text>
+      <!-- Node 1: Quarterly Planning — top -->
+      <circle cx="150" cy="36" r="32" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="150" y="29" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="var(--text-muted)" letter-spacing="0.1em">QUARTERLY</text>
+      <text x="150" y="41" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Planning</text>
 
-      <!-- Node 2: Priorities — right -->
-      <circle cx="252" cy="150" r="30" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
-      <text x="252" y="145" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">ENABLES</text>
-      <text x="252" y="159" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Decisions</text>
+      <!-- Node 2: Design Reviews — right -->
+      <circle cx="252" cy="150" r="32" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+      <text x="252" y="143" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="var(--text-muted)" letter-spacing="0.1em">ONGOING</text>
+      <text x="252" y="155" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" font-weight="500" fill="var(--text)">Design</text>
+      <text x="252" y="167" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" font-weight="500" fill="var(--text)">Reviews</text>
 
-      <!-- Node 3: Velocity — bottom -->
-      <circle cx="150" cy="264" r="30" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
-      <text x="150" y="259" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">DRIVES</text>
-      <text x="150" y="273" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Execution</text>
+      <!-- Node 3: Scrum — bottom -->
+      <circle cx="150" cy="264" r="32" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+      <text x="150" y="257" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="var(--text-muted)" letter-spacing="0.1em">WEEKLY</text>
+      <text x="150" y="269" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Scrum</text>
 
-      <!-- Node 4: Reflection — left -->
-      <circle cx="48" cy="150" r="30" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
-      <text x="48" y="145" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="var(--text-muted)" letter-spacing="0.1em">BUILDS</text>
-      <text x="48" y="159" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Visibility</text>
+      <!-- Node 4: Grooming — left -->
+      <circle cx="48" cy="150" r="32" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="48" y="143" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="var(--text-muted)" letter-spacing="0.1em">BI-WEEKLY</text>
+      <text x="48" y="155" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Grooming</text>
     </svg>
 
     <div style="display:flex;flex-direction:column;gap:16px;flex:1;">
@@ -490,6 +487,11 @@ table.mt td.num{color:var(--teal);font-weight:500;text-align:right;}
         <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;">Weekly</div>
         <div style="font-size:14px;color:var(--text);margin-bottom:3px;font-weight:500;">Scrum</div>
         <div class="body" style="font-size:14px;">Surface blockers early, keep work moving</div>
+      </div>
+      <div style="padding:14px 16px;border-left:2px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0;">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;">Ongoing</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:3px;font-weight:500;">Design Reviews + Demos</div>
+        <div class="body" style="font-size:14px;">Align on quality and direction before work moves forward</div>
       </div>
       <div style="font-size:13px;color:var(--text-muted);font-style:italic;padding-top:4px;">Meetings are not status updates. They are the mechanism for intentional decision making.</div>
     </div>
