@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEM — Case Study | Kim Inouye</title>
+<title>Stem — Case Study | Kim Inouye</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -181,6 +181,221 @@ nav {
   border-radius: 10px;
   border: 0.5px solid var(--border);
 }
+/* Full width of .wrap content (breaks out of narrow article column on large screens) */
+.case-article__figure-full {
+  margin: 2.25rem 0;
+  width: min(calc(960px - 6rem), calc(100vw - 6rem));
+  max-width: none;
+}
+.case-article__figure-full img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+.case-article__figcap {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+.case-article figure.case-article__subfig {
+  margin: 0;
+  max-width: 100%;
+}
+.case-article__subfig img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+.case-article__figure-pair .case-article__figure-pair__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.75rem, 2.5vw, 1.25rem);
+  align-items: start;
+}
+/* Rubric diagram (Figure 3) — matches case study tokens */
+.rubric-diag {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.35rem 1.35rem;
+}
+.rubric-diag__head {
+  text-align: center;
+  margin-bottom: 1.35rem;
+}
+.rubric-diag__title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+.rubric-diag__sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.rubric-diag__dims {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 640px) {
+  .rubric-diag__dims {
+    grid-template-columns: 1fr;
+  }
+}
+.rubric-diag__dim {
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+  padding: 0.85rem 0.75rem;
+  text-align: center;
+}
+[data-theme="dark"] .rubric-diag__dim--rel {
+  background: rgba(251, 191, 36, 0.08);
+}
+[data-theme="dark"] .rubric-diag__dim--add {
+  background: rgba(139, 124, 246, 0.1);
+}
+[data-theme="dark"] .rubric-diag__dim--app {
+  background: rgba(45, 212, 191, 0.08);
+}
+[data-theme="light"] .rubric-diag__dim--rel {
+  background: rgba(180, 83, 9, 0.08);
+}
+[data-theme="light"] .rubric-diag__dim--add {
+  background: rgba(91, 75, 212, 0.08);
+}
+[data-theme="light"] .rubric-diag__dim--app {
+  background: rgba(13, 148, 136, 0.08);
+}
+.rubric-diag__dim-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.rubric-diag__dim-q {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 400;
+  color: rgba(240, 237, 230, 0.88);
+  line-height: 1.45;
+  margin-bottom: 0.45rem;
+}
+[data-theme="light"] .rubric-diag__dim-q {
+  color: rgba(26, 25, 23, 0.88);
+}
+.rubric-diag__dim-range {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--hint);
+}
+.rubric-diag__arrow {
+  text-align: center;
+  color: var(--hint);
+  font-size: 1rem;
+  margin: 0.15rem 0 0.85rem;
+  line-height: 1;
+}
+.rubric-diag__total {
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  margin: 0 auto 1.1rem;
+  max-width: 14rem;
+  background: var(--bg3);
+}
+.rubric-diag__table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.rubric-diag__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.rubric-diag__table th,
+.rubric-diag__table td {
+  border-bottom: 0.5px solid var(--border);
+  padding: 0.55rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+.rubric-diag__table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom-color: var(--border-hover);
+}
+.rubric-diag__table tbody tr:last-child th,
+.rubric-diag__table tbody tr:last-child td {
+  border-bottom: none;
+}
+.rubric-diag__row--skip td {
+  background: rgba(240, 237, 230, 0.04);
+}
+[data-theme="light"] .rubric-diag__row--skip td {
+  background: rgba(26, 25, 23, 0.04);
+}
+.rubric-diag__row--border td {
+  background: transparent;
+}
+.rubric-diag__row--cap td {
+  background: rgba(45, 212, 191, 0.06);
+}
+[data-theme="light"] .rubric-diag__row--cap td {
+  background: rgba(13, 148, 136, 0.07);
+}
+.rubric-diag__score {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent2);
+  white-space: nowrap;
+}
+[data-theme="light"] .rubric-diag__score {
+  color: var(--accent);
+}
+.rubric-diag__decision {
+  font-weight: 500;
+  color: var(--text);
+}
+.rubric-diag__notes {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rubric-diag__notes p + p {
+  margin-top: 0.5rem;
+}
 footer {
   border-top: 0.5px solid var(--border);
   margin-top: 4rem;
@@ -213,6 +428,12 @@ footer a:hover {
   .wrap {
     padding: 5rem 1.5rem 3rem;
   }
+  .case-article__figure-full {
+    width: calc(100vw - 3rem);
+  }
+  .case-article__figure-pair .case-article__figure-pair__inner {
+    grid-template-columns: 1fr;
+  }
   nav {
     padding: 1rem 1.25rem;
   }
@@ -233,7 +454,7 @@ footer a:hover {
 <div class="wrap">
 
   <header class="case-header">
-    <p class="kicker">Case study · STEM</p>
+    <p class="kicker">Case study · Stem</p>
     <h1 class="case-title">Keeping the Human in the Loop</h1>
     <div class="hero-links">
       <a href="index.html">Back to site</a>
@@ -245,28 +466,88 @@ footer a:hover {
     <p>Rose started as a feedback decoder. Paste in the feedback you got from your manager, and she tells you what it actually means, whether it's fair, whether it reflects bias, and what to do with it. That's still what she does. But behind that simple interface is a knowledge system I've been building deliberately, and that's what I want to write about here.</p>
     <p>Rose runs on Claude. Her intelligence comes from a system prompt, a structured document that tells her who she is, what she knows, and how to behave. Think of it as her brain. It has layers: her persona and values, her knowledge base, and her interaction rules. When someone pastes feedback into Rose, she's drawing on all of it at once.</p>
 
-    <p>Here&rsquo;s what that looks like in practice—Rose&rsquo;s structured response (&ldquo;Your feedback decoded&rdquo;) with meaning, fairness check, reframe, and what to do next:</p>
-    <figure>
-      <img src="images/rose-structured-response.png" width="1200" height="675" alt="Rose interface showing Your Feedback Decoded with sections for what the feedback means, fairness check, reframe, and next steps">
-    </figure>
-
-    <figure>
-      <img src="images/rose-knowledge-layer.svg" width="1200" height="675" alt="Rose interface showing the feedback decoder and layered system prompt structure">
-    </figure>
-
     <p>The knowledge layer is where it gets interesting. Rose's brain is grounded in specific scholarship: feedback science from the Harvard Negotiation Project, gender bias research from UC Hastings, microaggression frameworks from Columbia, psychological safety data from Amy Edmondson at Harvard Business School. Not summaries. The actual frameworks, the specific patterns, the language. When Rose tells someone that "abrasive" is a Tightrope pattern and names what that means, she's drawing on Joan Williams' research directly.</p>
     <p>The question I had to answer early: how does she keep learning?</p>
-    <p>I built a system called STEM, a research capture tool that sits alongside Rose. STEM has two jobs. First, it gives me a curated list of sources worth monitoring: HBR, MIT Sloan, Catalyst, the NeuroLeadership Institute, Center for Creative Leadership. Second, it gives me a structured template for capturing anything worth adding to Rose's knowledge base. Source, core insight, why it matters for Rose specifically, and a draft of the actual language I'd add to her system prompt.</p>
+    <p>I built a system called Stem, a research capture tool that sits alongside Rose. Stem has two jobs. First, it gives me a curated list of sources worth monitoring: HBR, MIT Sloan, Catalyst, the NeuroLeadership Institute, Center for Creative Leadership. Second, it gives me a structured template for capturing anything worth adding to Rose's knowledge base. Source, core insight, why it matters for Rose specifically, and a draft of the actual language I'd add to her system prompt.</p>
 
-    <figure>
-      <img src="images/stem-research-capture.svg" width="1200" height="675" alt="STEM research capture tool showing sources and structured capture fields for Rose's knowledge base">
-    </figure>
+    <div class="case-article__figure-full case-article__figure-pair">
+      <div class="case-article__figure-pair__inner">
+        <figure class="case-article__subfig">
+          <figcaption class="case-article__figcap">Figure 1 — Research Scan</figcaption>
+          <img src="images/stem-research-scan.png" width="591" height="824" alt="Stem app Research Scan: run a scan across curated sources; summary shows articles found and next step to review.">
+        </figure>
+        <figure class="case-article__subfig">
+          <figcaption class="case-article__figcap">Figure 2 — Article review</figcaption>
+          <img src="images/stem-pending-review.png" width="606" height="824" alt="Stem app Pending Review: article card with core insight, why it matters for Rose, tags, and Approve, Edit, Reject actions.">
+        </figure>
+      </div>
+    </div>
 
     <p>The key design decision was making it human-in-the-loop by default. Rose doesn't learn automatically. Every addition goes through me. I read it, score it, decide if it changes what she says or how she says it. If it does, I draft the addition, push it to GitHub, and redeploy. That's a version increment. Rose is currently at v1.9.</p>
     <p>Today I built a rubric to make that scoring more consistent. Three dimensions: relevance to Rose's core job, additive value against what she already knows, and conversational applicability, whether it changes what she actually says in a real conversation. Each dimension scores zero to three. Anything below six gets skipped. Six to nine gets captured, and a separate confidence flag inside the capture template governs how quickly it moves into the prompt.</p>
+    <figure class="case-article__figure-full">
+      <figcaption class="case-article__figcap">Figure 3 — Rose knowledge source rubric</figcaption>
+      <div class="rubric-diag">
+        <div class="rubric-diag__head">
+          <p class="rubric-diag__title">Rose — knowledge source rubric</p>
+          <p class="rubric-diag__sub">Score each dimension 0–3. Add them up.</p>
+        </div>
+        <div class="rubric-diag__dims">
+          <div class="rubric-diag__dim rubric-diag__dim--rel">
+            <p class="rubric-diag__dim-label">Relevance</p>
+            <p class="rubric-diag__dim-q">Does this help Rose do her job?</p>
+            <p class="rubric-diag__dim-range">0 – 3</p>
+          </div>
+          <div class="rubric-diag__dim rubric-diag__dim--add">
+            <p class="rubric-diag__dim-label">Additive value</p>
+            <p class="rubric-diag__dim-q">Does she already know this?</p>
+            <p class="rubric-diag__dim-range">0 – 3</p>
+          </div>
+          <div class="rubric-diag__dim rubric-diag__dim--app">
+            <p class="rubric-diag__dim-label">Applicability</p>
+            <p class="rubric-diag__dim-q">Does it change what she says?</p>
+            <p class="rubric-diag__dim-range">0 – 3</p>
+          </div>
+        </div>
+        <p class="rubric-diag__arrow" aria-hidden="true">↓</p>
+        <p class="rubric-diag__total">Total score · 0 to 9</p>
+        <div class="rubric-diag__table-wrap">
+          <table class="rubric-diag__table">
+            <thead>
+              <tr>
+                <th scope="col">Score</th>
+                <th scope="col">Decision</th>
+                <th scope="col">What to do</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="rubric-diag__row--skip">
+                <td class="rubric-diag__score">0 to 3</td>
+                <td class="rubric-diag__decision">Skip</td>
+                <td>Not worth capturing. Move on.</td>
+              </tr>
+              <tr class="rubric-diag__row--border">
+                <td class="rubric-diag__score">4 to 5</td>
+                <td class="rubric-diag__decision">Borderline</td>
+                <td>Park it. Return at monthly review.</td>
+              </tr>
+              <tr class="rubric-diag__row--cap">
+                <td class="rubric-diag__score">6 to 9</td>
+                <td class="rubric-diag__decision">Capture it</td>
+                <td>Fill out capture template. Confidence flag governs timing.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rubric-diag__notes">
+          <p>Confidence flag: High = add now. Medium = review next session. Low = discuss first.</p>
+          <p>The rubric gets it in the door. The confidence flag decides when it goes live.</p>
+        </div>
+      </div>
+    </figure>
     <p>The rubric also forced a useful discovery. Rose's equity and bias knowledge is already strong: Kimberlé Crenshaw, Derald Wing Sue, Joan Williams, Kenji Yoshino. Adding more there has diminishing returns. The gaps are psychological safety and the role of AI in coaching. That's where the next additions are going.</p>
     <p>One thing I've been deliberate about: Rose doesn't retain anything between conversations. She has no memory. What she "learns" is what I add to her system prompt. That's a constraint, but it's also a trust decision. Users share things with Rose that are sensitive: feedback about performance, identity, workplace dynamics. A system that accumulates and retains that data creates risk. The current architecture doesn't.</p>
-    <p>The roadmap eventually includes a view inside STEM of Rose's brain: topic coverage, source distribution, where she's strong, where she's thin. The monthly review process I do manually now becomes something I can see at a glance. That's not built yet. But the foundation for it is.</p>
+    <p>The roadmap eventually includes a view inside Stem of Rose's brain: topic coverage, source distribution, where she's strong, where she's thin. The monthly review process I do manually now becomes something I can see at a glance. That's not built yet. But the foundation for it is.</p>
   </article>
 
   <footer>
