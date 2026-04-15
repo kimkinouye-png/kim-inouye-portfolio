@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacity Planner — Case Study | Kim Inouye</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles (from styles.css) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border-color: #e5e5e5;
+            --bg-color: #ffffff;
+            --link-hover: #333333;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            background-image:
+                repeating-linear-gradient(rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px);
+            background-size: 40px 40px, 40px 40px;
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.5) 60%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background-color: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color);
+            z-index: 1000;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            gap: 3rem;
+        }
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--link-hover); }
+        .logo-link { font-weight: 600; }
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+            font-family: 'Inter', sans-serif;
+        }
+        .toggle-icon {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toggle-option.active { font-weight: 600; opacity: 1; }
+        .toggle-option:not(.active) { opacity: 0.4; }
+        .toggle-separator { opacity: 0.3; }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero {
+            margin-bottom: 6rem;
+            padding-bottom: 4rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .section {
+            margin-bottom: 5rem;
+            padding-bottom: 4rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .section:last-child { border-bottom: none; }
+        .section h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        /* Dark mode */
+        body.dark-mode {
+            --text-primary: #ffffff !important;
+            --text-secondary: #b3b3b3 !important;
+            --text-muted: #808080 !important;
+            --border-color: #404040 !important;
+            --bg-color: #1a1a1a !important;
+        }
+        body.dark-mode {
+            background-color: var(--bg-color) !important;
+            color: var(--text-primary) !important;
+            background-image:
+                repeating-linear-gradient(rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px);
+        }
+        body.dark-mode::after {
+            background: radial-gradient(ellipse at center, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.85) 35%, rgba(26,26,26,0.5) 60%, transparent 100%);
+        }
+        body.dark-mode nav {
+            background-color: rgba(26,26,26,0.95);
+            border-bottom: 2px solid var(--border-color);
+        }
+        body.dark-mode .toggle-icon { color: var(--text-primary); }
+        /* Case study page styles */
+        .hero-eyebrow {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+        }
+        body.dark-mode .hero-eyebrow { color: #a78bfa; }
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        .hero-cta {
+            display: inline-block;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #8b5cf6;
+            padding-bottom: 2px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .hero-cta:hover { color: #7c3aed; border-color: #7c3aed; }
+        body.dark-mode .hero-cta { color: #a78bfa; border-color: #a78bfa; }
+        body.dark-mode .hero-cta:hover { color: #c4b5fd; border-color: #c4b5fd; }
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8b5cf6;
+            margin-bottom: 0.5rem;
+        }
+        body.dark-mode .section-label { color: #a78bfa; }
+        .section-intro {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+        .story-card {
+            background: transparent;
+            border: none;
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+        }
+        .story-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            letter-spacing: -0.01em;
+        }
+        .she-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 12px 24px;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+        .she-row:last-child { margin-bottom: 0; }
+        .she-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8b5cf6;
+            padding-top: 3px;
+        }
+        body.dark-mode .she-label { color: #a78bfa; }
+        .she-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.75;
+        }
+        .she-text strong { color: #8b5cf6; font-weight: 600; }
+        body.dark-mode .she-text strong { color: #a78bfa; }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .two-col h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+        }
+        .two-col p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .screen-wrap { margin-bottom: 2.5rem; }
+        .screen-wrap img {
+            width: 100%;
+            border-radius: 4px;
+            border: 2px solid var(--border-color);
+            display: block;
+        }
+        .screen-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+        .callout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .callout {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1.25rem;
+        }
+        body.dark-mode .callout { border-color: rgba(255,255,255,0.15); }
+        .callout-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .callout h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+        .callout p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 0;
+        }
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .badge {
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            padding: 4px 12px;
+            color: var(--text-secondary);
+        }
+        body.dark-mode .badge { border-color: rgba(255,255,255,0.2); }
+        .case-study-footer {
+            text-align: center;
+            padding: 3rem 0 0;
+            position: relative;
+            z-index: 1;
+        }
+        .case-study-footer a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        body.dark-mode .case-study-footer a { color: #a78bfa; }
+        .case-study-footer a:hover { text-decoration: underline; }
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+            .callout-grid { grid-template-columns: 1fr; }
+            .she-row { grid-template-columns: 1fr; }
+            .she-label { padding-bottom: 2px; }
+            .story-card { padding: 1.75rem; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#" class="logo-link">K / I</a></li>
+            <li><a href="#story1">Story 1</a></li>
+            <li><a href="#story2">Story 2</a></li>
+            <li><a href="#story3">Story 3</a></li>
+        </ul>
+        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+            <span class="toggle-icon"><span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span></span>
+        </button>
+    </nav>
+    <main>
+        <section class="hero">
+            <p class="hero-eyebrow">Portfolio Case Study</p>
+            <h1>Making design capacity visible and defensible</h1>
+            <p class="hero-subtitle">A scenario-based planning tool built for Design Program Managers and design leaders — solo designed and developed, end to end.</p>
+            <a href="https://capacity-planner.netlify.app/" target="_blank" class="hero-cta">View Live App ↗</a>
+        </section>
+        <section class="section" id="story1">
+            <p class="section-label">SHE Story 01</p>
+            <h2>Systematizing subjective capacity</h2>
+            <p class="section-intro">For general audiences — DPMs, design leaders, hiring managers focused on product thinking and UX process.</p>
+            <div class="story-card">
+                <div class="story-title">Story 1 · Systematizing Subjective Capacity</div>
+                <div class="she-row">
+                    <div class="she-label">Situation</div>
+                    <div class="she-text">I built a capacity-planning web app as a <strong>solo designer-developer</strong> for Design Program Managers and design leaders who needed a clearer, shared way to see design capacity versus roadmap demand.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Hindrance</div>
+                    <div class="she-text">Capacity planning was <strong>highly subjective</strong> — different designers sized work differently, leaders had limited roadmap detail, and it took multiple conversations with multiple stakeholders just to explain a single capacity problem. Teams had no consistent, measurable way to show how big a roadmap really was compared to what their designers could actually take on.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">What I Did</div>
+                    <div class="she-text">I structured the app around <strong>scenarios</strong> so leaders can copy, tweak, and compare different futures in minutes — like "one designer vs. three" or "full roadmap vs. reduced scope" — instead of rebuilding everything from scratch. A dashboard surfaces capacity challenges visually so the tension between capacity and demand is obvious without long explanation. I made the roadmap <strong>editable inline with bulk copy-paste</strong>, responding directly to feedback that manually re-entering similar roadmaps was too arduous. And I worked with design and content leadership to define <strong>adjustable weights</strong> — shared criteria that size scope — so the tool standardizes how projects are estimated across teams.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Effect</div>
+                    <div class="she-text">Spinning up and comparing scenarios is now as simple as copying and pasting, and teams are beginning to talk about capacity using the same language. The <strong>Head of Design Ops noted it creates consistency across multiple teams</strong> in how we size roadmaps — and it opens the door for executives to see a top-level view of capacity versus demand across all of design.</div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 2.5rem;">
+                <div>
+                    <div class="screen-wrap">
+                        <img src="images/scenarios-comparison.png" alt="Scenario dashboard — two scenario cards (Half Team and Full Team) showing UX Design and Content Design focus weeks, surplus, and deficit" width="1200" height="auto">
+                        <p class="screen-caption">Scenario dashboard — compare multiple planning options side by side</p>
+                    </div>
+                    <div class="screen-wrap">
+                        <img src="images/capacity-dashboard.png" alt="Capacity vs. demand dashboard showing UX Design and Content Design capacity panels with surplus and deficit" width="1200" height="auto">
+                        <p class="screen-caption">Dashboard — capacity vs. demand at a glance</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Why scenario cards?</h3>
+                    <p>Each card surfaces the key signals — team size, focus weeks, surplus or deficit — so leaders can evaluate a "what if" without building a new spreadsheet.</p>
+                    <p>The goal: make a capacity argument in a single screen rather than across three Slack threads.</p>
+                    <div class="callout-grid">
+                        <div class="callout">
+                            <div class="callout-icon">📋</div>
+                            <h4>Copy &amp; paste from table</h4>
+                            <p>Bulk-add roadmap items directly from a spreadsheet. No re-entry required.</p>
+                        </div>
+                        <div class="callout">
+                            <div class="callout-icon">⚖️</div>
+                            <h4>Adjustable weights</h4>
+                            <p>Teams tune the sizing model to their own criteria — making estimates consistent and defensible.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="story2">
+            <p class="section-label">SHE Story 02</p>
+            <h2>Making invisible work visible</h2>
+            <p class="section-intro">For design operations and program management audiences — people who understand the pain of advocating for headcount.</p>
+            <div class="story-card">
+                <div class="story-title">Story 2 · Making Invisible Work Visible</div>
+                <div class="she-row">
+                    <div class="she-label">Situation</div>
+                    <div class="she-text">Design teams were consistently over-committed but couldn't articulate <strong>why</strong> in terms leadership understood. Headcount asks were met with skepticism because there was no shared, data-backed picture of where time actually went.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Hindrance</div>
+                    <div class="she-text">The work that consumed designer bandwidth — <strong>reviews, feedback rounds, context-switching, unplanned requests</strong> — didn't show up in any roadmap. Leaders saw the project list and assumed there was room. The invisible overhead was the real capacity killer.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">What I Did</div>
+                    <div class="she-text">I built the tool to account for <strong>focus time vs. overhead</strong> so that "available capacity" reflects real productive hours, not calendar hours. The weight system lets teams encode the hidden cost of complexity — a project with five stakeholder reviews consumes more than one with a single approver. The dashboard makes this visible at a glance.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Effect</div>
+                    <div class="she-text">For the first time, teams could show leadership a <strong>realistic picture of load</strong> — not just a list of projects, but a picture that includes the invisible work. This shifted conversations from "can you squeeze this in?" to "what should we deprioritize to make room?"</div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="story3">
+            <p class="section-label">SHE Story 03 · Technical</p>
+            <h2>Prototyping to validate at enterprise speed</h2>
+            <p class="section-intro">For technical and product-minded audiences — people who appreciate the build-to-learn approach.</p>
+            <div class="story-card">
+                <div class="story-title">Story 3 · Prototyping to Validate at Enterprise Speed</div>
+                <div class="she-row">
+                    <div class="she-label">Situation</div>
+                    <div class="she-text">The organization needed a capacity planning solution, but enterprise tools were expensive, rigid, and would take months to evaluate. I proposed <strong>building a working prototype</strong> to test assumptions before committing to a platform.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Hindrance</div>
+                    <div class="she-text">No engineering resources were available. No budget for prototyping. The only option was to <strong>build it myself</strong> — fast enough to be useful, polished enough to earn trust from leadership.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">What I Did</div>
+                    <div class="she-text">Using <strong>Cursor and modern web tools</strong>, I designed and developed a fully functional capacity planner in days, not months. The app includes scenario management, inline editing, weighted scoring, and visual dashboards. I iterated based on real user feedback from DPMs and design leads — adjusting the data model, adding bulk paste, and refining the UI based on actual usage patterns.</div>
+                </div>
+                <div class="she-row">
+                    <div class="she-label">Effect</div>
+                    <div class="she-text">The prototype became the working tool — not a throwaway demo. It validated the core concept quickly enough that leadership could make <strong>informed decisions about enterprise investment</strong> based on real usage data rather than vendor pitches. The build-to-learn approach saved months of evaluation time.</div>
+                </div>
+            </div>
+            <div class="badge-row">
+                <span class="badge">Cursor</span>
+                <span class="badge">React</span>
+                <span class="badge">Netlify</span>
+                <span class="badge">Solo Design + Dev</span>
+                <span class="badge">Rapid Prototyping</span>
+            </div>
+        </section>
+        <div class="case-study-footer">
+            <a href="#">← Back to home</a>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    window.scrollTo({ top: target.offsetTop - navHeight - 20, behavior: 'smooth' });
+                }
+            });
+        });
+        function initDarkModeToggle() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (!darkModeToggle) return;
+            const toggleIcon = darkModeToggle.querySelector('.toggle-icon');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option active">Light</span>';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    if (toggleIcon) toggleIcon.innerHTML = '<span class="toggle-option active">Dark</span> <span class="toggle-separator">|</span> <span class="toggle-option">Light</span>';
+                }
+            }
+            applyTheme(currentTheme);
+            darkModeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDarkModeToggle);
+        } else {
+            initDarkModeToggle();
+        }
+    </script>
+</body>
+</html>

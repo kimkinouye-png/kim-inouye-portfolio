@@ -1,0 +1,76 @@
+{
+  "name": "Capacity Planner Case Study",
+  "pageType": "portfolio-case-study",
+  "designSystem": {
+    "fontFamily": "Inter",
+    "fontWeights": [300, 400, 500, 600, 700],
+    "colors": {
+      "light": {
+        "textPrimary": "#000000",
+        "textSecondary": "#666666",
+        "textMuted": "#999999",
+        "accent": "#8b5cf6",
+        "accentHover": "#7c3aed",
+        "border": "#e5e5e5",
+        "bg": "#ffffff"
+      },
+      "dark": {
+        "textPrimary": "#ffffff",
+        "textSecondary": "#b3b3b3",
+        "textMuted": "#808080",
+        "accent": "#a78bfa",
+        "accentHover": "#c4b5fd",
+        "border": "#404040",
+        "bg": "#1a1a1a"
+      }
+    },
+    "layout": {
+      "maxWidth": "800px",
+      "mainPadding": "8rem 2rem 4rem",
+      "sectionMarginBottom": "5rem",
+      "sectionPaddingBottom": "4rem",
+      "heroMarginBottom": "6rem"
+    },
+    "typography": {
+      "heroTitle": "clamp(2.2rem, 6vw, 3.5rem) / 700 / -0.03em",
+      "heroSubtitle": "1.15rem / 1.7 line-height",
+      "sectionLabel": "0.8rem / 600 / uppercase / 0.08em letter-spacing",
+      "sheLabel": "0.75rem / 600 / uppercase",
+      "body": "1rem / 1.75 line-height",
+      "caption": "0.85rem / muted"
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "components": ["eyebrow", "h1", "subtitle", "cta-link"]
+    },
+    {
+      "id": "story1",
+      "label": "SHE Story 01",
+      "title": "Systematizing subjective capacity",
+      "components": ["section-label", "h2", "intro", "story-card", "two-col-with-screenshots", "callouts"]
+    },
+    {
+      "id": "story2",
+      "label": "SHE Story 02",
+      "title": "Making invisible work visible",
+      "components": ["section-label", "h2", "intro", "story-card"]
+    },
+    {
+      "id": "story3",
+      "label": "SHE Story 03 · Technical",
+      "title": "Prototyping to validate at enterprise speed",
+      "components": ["section-label", "h2", "intro", "story-card", "badge-row"]
+    },
+    {
+      "id": "footer",
+      "components": ["back-link"]
+    }
+  ],
+  "sourceFiles": {
+    "html": "capacity-planner.html",
+    "css": "styles.css (base) + inline styles in capacity-planner.html",
+    "js": "script.js (dark mode, smooth scroll)"
+  }
+}
