@@ -1,40 +1,10 @@
 [build]
   # This is a static site, no build command needed
-  publish = "."
+    publish = "."
 
-# Pretty URLs (same as https://kim-inouye.netlify.app/resume)
-[[redirects]]
-  from = "/resume"
-  to = "/resume.html"
-  status = 200
-
-[[redirects]]
-  from = "/portfolio"
-  to = "/portfolio.html"
-  status = 200
-
-[[redirects]]
-  from = "/stem"
-  to = "/stem.html"
-  status = 200
-
-[[redirects]]
-  from = "/rose"
-  to = "/rose.html"
-  status = 200
-
-[[redirects]]
-  from = "/capacity-planner"
-  to = "/capacity-planner.html"
-  status = 200
-
-[[redirects]]
-  from = "/aperi"
-  to = "/aperi.html"
-  status = 200
-
-[[redirects]]
-  # Redirect www to non-www (optional, customize as needed)
-  from = "/*"
-  to = "/index.html"
-  status = 200
+    # Redirect all traffic to www.aperi.co
+    [[redirects]]
+      from = "/*"
+        to = "https://www.aperi.co/:splat"
+          status = 301
+            force = true
